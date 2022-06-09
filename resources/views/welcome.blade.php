@@ -5,8 +5,8 @@
             ->with('site_title', 'Laravel');
     }}
     <body class="antialiased">
-        <?php harvest_analytics(request()); ?>
-        <?php $pages_analytics = get_pages_analytics(); ?>
+        <?php //harvest_analytics(request()); ?>
+        <?php $pages_analytics = [];//get_pages_analytics(); ?>
         
         <div id="example" style="margin: 10px; padding: 10px">
         </div>
