@@ -1,0 +1,18 @@
+
+
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/baxvcmdv/public_html
+    - cp -R resources $DEPLOYPATH
+    - cp -R public/js $DEPLOYPATH/public
+    - cp -R public/css $DEPLOYPATH/public
+    - cp -R public/images $DEPLOYPATH/public
+    - cp -R app/Http/Controllers $DEPLOYPATH/app/Http
+    - cp -R app/Models $DEPLOYPATH/app
+    - cp -R app/Providers $DEPLOYPATH/app
+    - cp -R app/Helpers $DEPLOYPATH/app
+    - cp -R lang/en $DEPLOYPATH/lang
+    - cp -R lang/fr $DEPLOYPATH/lang
+    - cp -R config/app.php $DEPLOYPATH/config 
+    - cp -R database/migrations $DEPLOYPATH/database
+    - php artisan migrate
