@@ -14,4 +14,3 @@ deployment:
     - cp -R lang/fr $DEPLOYPATH/lang
     - cp -R config/app.php $DEPLOYPATH/config 
     - cp -R database/migrations $DEPLOYPATH/database
-    - php artisan migrate
