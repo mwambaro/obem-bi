@@ -29,15 +29,9 @@
         </script>
     </head>
     <body class="antialiased">
-        <?php //harvest_analytics(request()); ?>
-        <?php $pages_analytics = [];//get_pages_analytics(); ?>
         
         <div id="example" style="margin: 10px; padding: 10px">
         </div>
-        @if(count($pages_analytics) > 0)
-            <div id="pages_analytics" style="margin: 10px; padding: 10px">
-            </div>
-        @endif
         
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
@@ -164,23 +158,6 @@
                 ), 
                 document.getElementById('example')
             );
-
-            if(document.getElementById('pages_analytics'))
-            {
-                ReactDOM.render(
-                    e(
-                        ObemSiteAnalytics, 
-                        {
-                            page_analytics: '<?php echo json_encode($pages_analytics); ?>', 
-                            number_of_visits_label: "{{ __('obem.number_of_visits') }}",
-                            number_of_visitors_label: "{{ __('obem.number_of_visitors') }}",
-                            page_visited_label: "{{ __('obem.page_visited') }}",
-                            website_analytics_label: "{{ __('obem.website_analytics_label') }}"
-                        }
-                    ), 
-                    document.getElementById('pages_analytics')
-                );
-            }
         </script>
     </body>
 </html>
