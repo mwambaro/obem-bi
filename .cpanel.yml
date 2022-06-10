@@ -13,3 +13,4 @@ deployment:
     - cp lang/en/obem.php $DEPLOYPATH/lang/en
     - cp -R lang/fr $DEPLOYPATH/lang
     - cp -R config/app.php $DEPLOYPATH/config
+    - mv .env.prod $DEPLOYPATH/.env
