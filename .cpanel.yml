@@ -15,6 +15,6 @@ deployment:
     - cp -R lang/fr $DEPLOYPATH/lang
     - cp -R config/app.php $DEPLOYPATH/config
     - cp routes/web.php $DEPLOYPATH/routes
-    - cp public/index.php $DEPLOYPATH
+    - cp index.php $DEPLOYPATH
     - mv .env.prod $DEPLOYPATH/.env
     - php artisan migrate
