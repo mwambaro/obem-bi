@@ -1,6 +1,4 @@
 
 <?php
-    use Illuminate\Support\Facades\Redirect;
-    
-    Redirect::to('/');
+    header("refresh: 1; https://obem.bi/public/");
 ?>
