@@ -13,7 +13,7 @@ function user_has_admin_role()
     {}
     catch(Exception $e)
     {
-        $message = date("D M d, Y G:i") . ': [' . __FUNCTION__ . '] ' . $e->getMessage();
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
         Log::error($message);
     }
 
@@ -29,7 +29,7 @@ function who_is_logged_in()
     {}
     catch(Exception $e)
     {
-        $message = date("D M d, Y G:i") . ': [' . __FUNCTION__ . '] ' . $e->getMessage();
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
         Log::error($message);
     }
 
@@ -70,7 +70,7 @@ function harvest_analytics($request)
     }
     catch(Exception $e)
     {
-        $message = date("D M d, Y G:i") . ': [' . __FUNCTION__ . '] ' . $e->getMessage();
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
         Log::error($message);
     }
 
@@ -111,7 +111,7 @@ function get_pages_analytics()
     }
     catch(Exception $e)
     {
-        $message = date("D M d, Y G:i") . ': [' . __FUNCTION__ . '] ' . $e->getMessage();
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
         Log::error($message);
     }
 
