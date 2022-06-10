@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\PageView;
 
+/** 
+ * Some of the functions below use database access and we need to make sure migrations were
+ * upped into the database by running: php artisan migrate.
+*/
+
 function user_has_admin_role()
 {
     $has = false;
