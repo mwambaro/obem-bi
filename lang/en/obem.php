@@ -9,6 +9,7 @@ return [
     'employment_label' => 'Employment and Manpower',
     'orientation_label' => 'Orientation',
     'obem_acronym' => 'OBEM',
+    'fail_safe_message' => 'Oops! Something must have gone wrong. If you are the site owner or maintainer, please, check the logs!',
     'locale_set_success' => '
       The language settings were set successfully as requested. You need to reload your pages for these settings to take effect
     ',

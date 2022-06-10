@@ -2,16 +2,18 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/baxvcmdv/public_html
-    - cp resources/views/welcome.blade.php $DEPLOYPATH/resources/views
+    - cp -R resources/views $DEPLOYPATH/resources
     - cp -R public/js $DEPLOYPATH/public
     - cp -R public/css $DEPLOYPATH/public
     - cp -R public/images $DEPLOYPATH/public
     - cp -R app/Helpers $DEPLOYPATH/app
     - cp app/Providers/HelperServiceProvider.php $DEPLOYPATH/app/Providers
     - cp -R app/Models $DEPLOYPATH/app
+    - cp -R app/Http/Controllers $DEPLOYPATH/app/Http
     - cp -R database/migrations $DEPLOYPATH/database
     - cp lang/en/obem.php $DEPLOYPATH/lang/en
     - cp -R lang/fr $DEPLOYPATH/lang
     - cp -R config/app.php $DEPLOYPATH/config
+    - cp routes/web.php $DEPLOYPATH/routes
     - mv .env.prod $DEPLOYPATH/.env
     - php artisan migrate

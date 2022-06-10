@@ -2,11 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     {{ 
         view('header')
-            ->with('site_title', $site_title);
+            ->with('site_title', $site_title)
+            ->with('obem_open_graph_proto_locale', $obem_open_graph_proto_locale);
     }}
     <body>
-        <?php harvest_analytics(request()); ?>
-        <?php $pages_analytics = get_pages_analytics(); ?>
+        {{
+            view('banner_view');
+        }}
         
         <div id="example" style="margin: 10px; padding: 10px">
         </div>

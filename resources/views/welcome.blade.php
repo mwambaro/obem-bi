@@ -28,9 +28,18 @@
         <script type="module" src="{{ asset('js/app.js') }}">
         </script>
     </head>
-    <body class="antialiased">
+    <body class="antialiased container-fluid">
         
         <div id="example" style="margin: 10px; padding: 10px">
+        </div>
+        
+        <?php use App\Http\Controllers\ObemMainController; ?>
+        <div style="margin: 10px; padding: 10px" class="row justify-content-center">
+            <div class="col-md-8">
+                <p>
+                    <a href="{{ action([ObemMainController::class, 'home']) }}"> {{ __('obem.home_label') }} </a>
+                </p>
+            </div>
         </div>
         
         <?php harvest_analytics(request()); ?>

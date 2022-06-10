@@ -9,6 +9,7 @@ return [
     'employment_label' => 'Emploi and Main d\'œuvre',
     'orientation_label' => 'Orientation',
     'obem_acronym' => 'OBEM',
+    'fail_safe_message' => 'Oops! Il se pourrait que l\'on ait eu un problème. Si vous êtes propriétaire du site, veuillez consulter les documents \'log\'!',
     'locale_set_success' => '
         Les paramètres de langue demandés ont été appliqués avec succès. Recharger les pages pour 
         que ces paramètres fassent effet.

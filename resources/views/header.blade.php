@@ -1,6 +1,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="{{ __('obem.obem_site_description') }}">
+    
+        <?php // 35 characters ?>
+        <meta property="og:title" content="{{ __('obem.obem_open_graph_proto_title') }}" />
+        <meta property="og:url" content="https://obem.bi" />
+        <?php // 65 characters ?>
+        <meta property="og:description" content="{{ __('obem.obem_open_graph_proto_description') }}" />
+        <?php // Image type PNG or JPG size less than 300KB and minimum pixels 300x200 ?>
+        <meta property="og:image" content="{{ asset('images/obem_banner_image.JPG') }}" />
+        <?php // see https://opengraphprotocol.org/#types ?>
+        <meta property="og:type" content="website" />
+        <?php // Examples: en_US, en_GB. => locale_TERRITORRY ?>
+        <meta property="og:locale" content="<?php echo $obem_open_graph_proto_locale; ?>" />
 
         <title>{{ $site_title }}</title>
 
@@ -23,6 +36,19 @@
 
         
         <!-- App JS -->
-        <script type="module" src="{{ asset('js/app.js') }}">
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script type="module" src="{{ asset('js/app.js') }}"></script>
+        <script>
+            try 
+            {
+                if(AOS && AOS != 'undefined')
+                {
+                    AOS.init();
+                }
+            }
+            catch(e)
+            {
+                console.log("AOS: " + e);
+            }
         </script>
     </head>
