@@ -145,7 +145,6 @@
         <script src="{{ asset('js/react-dom.production.min.js') }}"> </script>
         <script src="{{ asset('js/prop-types.min.js') }}"> </script>
         <script src="{{ asset('js/components/Example.js') }}"> </script>
-        <script src="{{ asset('js/components/ObemSiteAnalytics.js') }}"> </script>
         <script type="text/javascript">
             ReactDOM.render(
                 e(

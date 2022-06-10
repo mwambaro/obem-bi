@@ -2,8 +2,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/baxvcmdv/public_html
-    - cp -R resources $DEPLOYPATH
+    - cp -R resources/views/welcome.blade.php $DEPLOYPATH/resources/views
     - cp -R public/js $DEPLOYPATH/public
     - cp -R public/css $DEPLOYPATH/public
     - cp -R public/images $DEPLOYPATH/public
-    - php artisan migrate
