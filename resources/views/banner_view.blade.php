@@ -1,3 +1,4 @@
+        <?php use App\Http\Controllers\ObemMainController; ?>
         
         <div class="container-fluid">
             <div class="text-center">
@@ -15,7 +16,7 @@
                 for(let i=0; i<blength; i++)
                 {
                     banners[i].onclick = function(){
-                        window.location = '/obem_main/home';
+                        window.location = "{{ action([ObemMainController::class, 'home']) }}";
                     }
                     banners[i].onmouseover = function(e){
                         e.target.style.cursor = 'pointer';

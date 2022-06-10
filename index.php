@@ -1,4 +1,4 @@
 
 <?php
-    header("refresh: 1; https://obem.bi/public/");
+    header("Location: https://obem.bi/public/");
 ?>
