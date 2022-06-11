@@ -36,6 +36,7 @@
 
         
         <!-- App JS -->
+        <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script type="module" src="{{ asset('js/app.js') }}"></script>
         <script>

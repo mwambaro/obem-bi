@@ -17,6 +17,7 @@ return [
     'locale_set_no_locale_settings' => '
       Apparently you did not actually send any language settings information. Unless our servers failed us
     ',
+    'obem_site_media_upload_form_title' => 'OBEM - Upload Media Files As Part Of An Article',
     'usa' => 'United States of America',
     'burundi' => 'Burundi',
     'rwanda' => 'Rwanda',

@@ -12,14 +12,20 @@
         
         <div id="example" style="margin: 10px; padding: 10px">
         </div>
+        
         @if(count($pages_analytics) > 0)
             <div id="pages_analytics" style="margin: 10px; padding: 10px">
             </div>
         @endif
+        
+        <?php use App\Http\Controllers\ObemSiteMediaController; ?>
+        <div id="upload-media" style="margin: 10px; padding: 10px">
+        </div>
 
         {{ view('reactjs') }}
         <script src="{{ asset('js/components/Example.js') }}"> </script>
         <script src="{{ asset('js/components/ObemSiteAnalytics.js') }}"> </script>
+        <script src="{{ asset('js/components/ObemArticleMediaUpload.js') }}"></script>
         <script type="text/javascript">
             ReactDOM.render(
                 e(
@@ -47,6 +53,22 @@
                         }
                     ), 
                     document.getElementById('pages_analytics')
+                );
+            }
+
+            if(document.getElementById('upload-media'))
+            {
+                ReactDOM.render(
+                    e(
+                        ObemArticleMediaUpload, 
+                        {
+                            obem_site_media_upload_form_title: "{{ __('obem.obem_site_media_upload_form_title') }}", 
+                            obem_media_upload_endpoint: "{{ action([ObemSiteMediaController::class, 'upload_media']) }}",
+                            submit_label: "{{ __('obem.submit_label') }}",
+                            csrf_token: "{{ csrf_token() }}"
+                        }
+                    ), 
+                    document.getElementById('upload-media')
                 );
             }
         </script>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObemMainController;
+use App\Http\Controllers\ObemSiteMediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/obem_main/home', [ObemMainController::class, 'home']);
+Route::post(
+    '/obem_site_media/upload_media', 
+    [ObemSiteMediaController::class, 'upload_media']
+);

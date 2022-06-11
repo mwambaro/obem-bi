@@ -19,6 +19,7 @@ return [
         Au fait, apparemment tu ne nous as envoyé aucune information de paramètres de langue. 
         A moins que ce soit une défaillance de la part de nos serveurs.
     ',
+    'obem_site_media_upload_form_title' => 'OBEM - Stoquer Des Fichiers Média Pour Un Article',
     'usa' => 'Etats-Unis d\'Amérique',
     'burundi' => 'Burundi',
     'rwanda' => 'Rwanda',
