@@ -24,3 +24,31 @@ Route::post(
     '/obem_site_media/upload_media', 
     [ObemSiteMediaController::class, 'upload_media']
 );
+Route::post(
+    '/obem_site_media/update_article/{id}',
+    [ObemSiteMediaController::class, 'update_article']
+);
+Route::post(
+    '/obem_site_media/create_article',
+    [ObemSiteMediaController::class, 'create_article']
+);
+Route::post(
+    '/obem_site_media/update_media/{id}',
+    [ObemSiteMediaController::class, 'update_media']
+);
+Route::get(
+    '/obem_site_media/new_article/{id?}',
+    [ObemSiteMediaController::class, 'new_article']
+);
+Route::get(
+    '/obem_site_media/new_media/{id?}',
+    [ObemSiteMediaController::class, 'new_media']
+);
+Route::get(
+    '/obem_site_media/show_medium/{id}',
+    [ObemSiteMediaController::class, 'show_medium']
+);
+Route::get(
+    '/obem_site_media/serve_medium/{id}',
+    [ObemSiteMediaController::class, 'serve_medium']
+);

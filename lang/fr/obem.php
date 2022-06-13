@@ -9,6 +9,10 @@ return [
     'employment_label' => 'Emploi and Main d\'œuvre',
     'orientation_label' => 'Orientation',
     'obem_acronym' => 'OBEM',
+    'create_media' => 'Créer des Média',
+    'update_media' => 'Mettre à jour des Média',
+    'something_went_wrong' => 'Oops! Quelque chose de terrible est survenue de notre côté',
+    'update_article_note' => 'Lorsque vous mettez à jour un article, vous devez aussi mettre à jour tous les médias de l\'article ou les laisser tous.',
     'fail_safe_message' => 'Oops! Il se pourrait que l\'on ait eu un problème. Si vous êtes propriétaire du site, veuillez consulter les documents \'log\'!',
     'locale_set_success' => '
         Les paramètres de langue demandés ont été appliqués avec succès. Recharger les pages pour 
@@ -20,6 +24,7 @@ return [
         A moins que ce soit une défaillance de la part de nos serveurs.
     ',
     'obem_site_media_upload_form_title' => 'OBEM - Stoquer Des Fichiers Média Pour Un Article',
+    'obem_site_article_new_form_title' => 'OBEM - Créer de Nouveaux Articles',
     'usa' => 'Etats-Unis d\'Amérique',
     'burundi' => 'Burundi',
     'rwanda' => 'Rwanda',

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('obem_article_media', function (Blueprint $table) {
+        Schema::create('obem_site_articles', function (Blueprint $table) {
             $table->id();
-            $table->string('mime_type');
-            $table->string('media_file_name');
-            $table->string('media_file_path');
-            $table->integer('article_id');
+            $table->string('capture');
+            $table->string('locale');
+            $table->string('body');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obem_article_media');
+        Schema::dropIfExists('obem_site_articles');
     }
 };

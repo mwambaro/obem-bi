@@ -17,4 +17,3 @@ deployment:
     - cp routes/web.php $DEPLOYPATH/routes
     - cp index.php $DEPLOYPATH
     - mv .env.prod $DEPLOYPATH/.env
-    - php artisan migrate

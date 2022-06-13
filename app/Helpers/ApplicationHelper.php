@@ -11,6 +11,27 @@ use App\Models\PageView;
  * upped into the database by running: php artisan migrate.
 */
 
+function get_supported_languages()
+{
+    $ary = null;
+
+    try 
+    {
+        $ary = [
+            ['locale' => 'en', 'language' => __('obem.english'), 'country' => __('obem.usa')],
+            ['locale' => 'fr', 'language' => __('obem.french'), 'country' => __('obem.france')]
+        ];
+    }
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+    return $ary;
+
+} // get_supported_languages
+
 function obem_site_title($action)
 {
     $title = 'OBEM';

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ObemArticleMedium extends Model
+class ObemSiteArticle extends Model
 {
     use HasFactory;
 
@@ -15,10 +15,9 @@ class ObemArticleMedium extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'mime_type',
-        'media_file_name',
-        'media_file_path',
-        'article_id'
+        'capture',
+        'locale',
+        'body',
+        'date'
     ];
-
 }

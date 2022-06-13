@@ -9,6 +9,10 @@ return [
     'employment_label' => 'Employment and Manpower',
     'orientation_label' => 'Orientation',
     'obem_acronym' => 'OBEM',
+    'create_media' => 'Create Media',
+    'update_media' => 'Update Media',
+    'something_went_wrong' => 'Yikes something must have gone wrong on our end',
+    'update_article_note' => 'When you update an article, you have to update all media in the article too, or not update any media at all.',
     'fail_safe_message' => 'Oops! Something must have gone wrong. If you are the site owner or maintainer, please, check the logs!',
     'locale_set_success' => '
       The language settings were set successfully as requested. You need to reload your pages for these settings to take effect
@@ -18,6 +22,7 @@ return [
       Apparently you did not actually send any language settings information. Unless our servers failed us
     ',
     'obem_site_media_upload_form_title' => 'OBEM - Upload Media Files As Part Of An Article',
+    'obem_site_article_new_form_title' => 'OBEM - Create New Article',
     'usa' => 'United States of America',
     'burundi' => 'Burundi',
     'rwanda' => 'Rwanda',
