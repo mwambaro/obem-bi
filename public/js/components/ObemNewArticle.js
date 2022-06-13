@@ -166,7 +166,8 @@ class ObemNewArticle extends React.Component
                         supported_languages_select_div, body_textarea_div,  
                         submit_div
                     ]
-                )
+                ),
+                update_article_note
             ]
         );
 
