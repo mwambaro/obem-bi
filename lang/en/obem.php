@@ -11,6 +11,7 @@ return [
     'obem_acronym' => 'OBEM',
     'create_media' => 'Create Media',
     'update_media' => 'Update Media',
+    'fail_safe_title' => 'OBEM - Maintenance Message',
     'something_went_wrong' => 'Yikes something must have gone wrong on our end',
     'update_article_note' => 'When you update an article, you have to update all media in the article too, or not update any media at all.',
     'fail_safe_message' => 'Oops! Something must have gone wrong. If you are the site owner or maintainer, please, check the logs!',

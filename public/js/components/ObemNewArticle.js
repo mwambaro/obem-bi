@@ -183,16 +183,23 @@ class ObemNewArticle extends React.Component
 
     manageUpdateMode()
     {
-        if(this.props.should_update === 'true')
+        try 
         {
-            console.log("Ready to have you edit form ...");
-            let article = JSON.parse(this.props.article);
-            if(article)
+            if(this.props.should_update === 'true')
             {
-                document.obem_site_article_new_form.capture.value = article.capture;
-                document.obem_site_article_new_form.body.value = article.body;
-                document.obem_site_article_new_form.date.value = article.date;
+                console.log("JSON: " + this.props.article);
+                let article = JSON.parse(this.props.article);
+                if(article)
+                {
+                    document.obem_site_article_new_form.capture.value = article.capture;
+                    document.obem_site_article_new_form.body.value = article.body;
+                    document.obem_site_article_new_form.date.value = article.date;
+                }
             }
+        }
+        catch(error)
+        {
+            console.log('manageUpdateMode: ' + error.message);
         }
 
     } // manageUpdateMode

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\ObemSiteArticle;
 use App\Models\ObemArticleMedium;
@@ -133,7 +131,7 @@ class ObemSiteMediaController extends Controller
                 throw new Exception('Medium with id ' . $id . ' could not be located');
             }
             $path_to_file = storage_path('app/' . $medium->media_file_path);
-            Log::info('---> Path to file: ' . $path_to_file);
+            //Log::info('---> Path to file: ' . $path_to_file);
 
             return response()->file($path_to_file);
 
@@ -271,20 +269,13 @@ class ObemSiteMediaController extends Controller
 
         try 
         {
-            $sql_query = "SELECT * FROM obem_article_media WHERE article_id = '" . $id . "'";
-            $obem_media = DB::select($sql_query);
-            if(count($obem_media) > 0)
+            if($request->has('uploads_completed'))
             {
-                $obem_medium = $obem_media[0];
-                $data_to_send = $this->store_media($request, true, $obem_medium);
+                $data_to_send = $this->finishing_up_media_uploads(true);
             }
             else 
             {
-                $message = 'No valid article medium to update was found';
-                $data_to_send = [
-                    'message' => $message,
-                    'code' => 0
-                ];
+                $data_to_send = $this->store_media($request, true); // same as upload
             }
 
             // return data to client
@@ -315,7 +306,15 @@ class ObemSiteMediaController extends Controller
 
         try 
         {
-            $data_to_send = $this->store_media($request, false, null);
+            $data_to_send = null;
+            if($request->has('uploads_completed'))
+            {
+                $data_to_send = $this->finishing_up_media_uploads();
+            }
+            else 
+            {
+                $data_to_send = $this->store_media($request, false, null);
+            }
 
             // return data to client
             if(!$data_to_send)
@@ -405,10 +404,11 @@ class ObemSiteMediaController extends Controller
                 if($stored)
                 {
                     session(['new_article_id' => $obem_site_article->id]);
-                    $message = 'OBEM article created successfully. You can proceed and create contained media at: ' .
-                               '<a href="' . 
+                    $message = 'OBEM article created successfully. You can' . 
+                               ' proceed and create contained media at: <a href="' . 
                                $action_url . 
-                               '">' . __('obem.create_media') . '</a>';
+                               '" style="decoration: underline">' . 
+                               __('obem.create_media') . '</a>';
                     $data_to_send = [
                         'message' => $message,
                         'code' => 1
@@ -440,7 +440,7 @@ class ObemSiteMediaController extends Controller
 
     } // store_article
 
-    function store_media(Request $request, $should_update=false, $obem_medium=null)
+    function store_media(Request $request, $should_update=false)
     {
         $data = null;
         
@@ -472,12 +472,15 @@ class ObemSiteMediaController extends Controller
             {
                 //Log::info('Processing uploaded file ...');
                 $article_id = session('new_article_id', -1);
+                $do_not_ignore_check = true;
 
-                if(!ObemSiteArticle::find($article_id))
+                if(!ObemSiteArticle::find($article_id) && $do_not_ignore_check)
                 {
+                    Log::info('---> ARTICLE ID: ' . $article_id);
                     $file = $request->file($file_key);
                     $file_name = $file->getClientOriginalName();
-                    $message = 'Media [' . $file_name . '] does not seem to belong to any article, so we could not create it.';
+                    $message = 'Media [' . $file_name . '] does not seem to belong'.
+                               ' to any article, so we could not create it.';
                     $data_to_send = [
                         'message' => $message,
                         'code' => 0
@@ -492,44 +495,20 @@ class ObemSiteMediaController extends Controller
 
                     Log::info('Upload: MimeType => "' . $mime_type . '", FileName => "' . $file_name . '"');
 
-                    $stored = false;
-
-                    if($should_update)
-                    {
-                        if(!$obem_medium)
-                        {
-                            throw new Exception('You must have given an invalid article medium');
-                        }
-                        // Delete actual media from storage
-                        $path = $obem_medium->media_file_path;
-                        //Log::info('---> Deleting file: ' . $path);
-                        Storage::delete($path);
-                        // update database entry
-                        $stored = DB::table('obem_article_media')
-                            ->where('id', $obem_medium->id)
-                            ->update([
-                                'mime_type' => $mime_type,
-                                'media_file_name' => $file_name,
-                                'media_file_path' => $media_file_path,
-                                'article_id' => $article_id
-                            ]);
-                        $medium_id = $obem_medium->id;
-                    }
-                    else 
-                    {
-                        $medium = ObemArticleMedium::create([
-                            'mime_type' => $mime_type,
-                            'media_file_name' => $file_name,
-                            'media_file_path' => $media_file_path,
-                            'article_id' => $article_id
-                        ]);
-                        $stored = $medium->save();
-                        $medium_id = $medium->id;
-                    }
+                    $medium = ObemArticleMedium::create([
+                        'mime_type' => $mime_type,
+                        'media_file_name' => $file_name,
+                        'media_file_path' => $media_file_path,
+                        'article_id' => $article_id
+                    ]);
+                    $stored = $medium->save();
+                    $medium_id = $medium->id;
 
                     if($stored)
                     {
-                        session(['new_article_id' => -1]);
+                        // medium-validate article
+                        medium_validate_article_body($medium);
+                        // General feedback
                         $action_url = action(
                             [
                                 ObemSiteMediaController::class, 
@@ -537,7 +516,12 @@ class ObemSiteMediaController extends Controller
                             ],
                             ['id' => $medium_id]
                         );
-                        $message = 'Media successfully uploaded. You can visualize it at: <a href="' . $action_url . '"> See Medium </a>';
+                        $message = 'Media successfully uploaded. You can visualize'. 
+                                   ' it at: <a href="' . $action_url . 
+                                   '" style="decoration: underline"> See Medium </a>';
+                        session(['last_uploaded_medium_id' => $medium_id]);
+
+                        // Give feedback
                         $data_to_send = [
                             'message' => $message,
                             'code' => 1
@@ -569,4 +553,74 @@ class ObemSiteMediaController extends Controller
         return $data;
 
     } // store_media
+
+    function finishing_up_media_uploads($should_update=false)
+    {
+        try 
+        {
+            $data_to_send = null;
+            if(true)
+            {
+                $article_id = session('new_article_id');
+                $medium_id = session('last_uploaded_medium_id');
+                session(['new_article_id' => -1]);
+                session(['last_uploaded_medium_id' => -1]);
+
+                // Clean ?
+                if($should_update)
+                {
+                    clean_media_storage($article_id, $medium_id);
+                }
+
+                $message = '';
+                $action_url = action(
+                    [
+                        ObemSiteMediaController::class, 
+                        'show_medium'
+                    ],
+                    ['id' => $medium_id]
+                );
+                $ary = storage_validate_article_body($article_id);
+                if(count($ary) > 0)
+                {
+                    $update_url = action(
+                        [ObemSiteMediaController::class, 'new_article'], 
+                        ['id' => $article_id]
+                    );
+                    $message = 'These files: ' . join(', ', $ary) . 
+                               ' must not have been uploaded. So your' . 
+                               ' article is invalid, unless you' . 
+                               ' update it here: <a href="' . $update_url .
+                               '" style="decoration: underline"> '. 
+                               'Validate Article </a> OR <a href="' . 
+                               $action_url .
+                               '" style="decoration: underline">'. 
+                               ' View Medium </a>';
+                }
+                else 
+                {
+                    $message = 'Success. The upload process is over. ' .
+                               'View last upload media at: <a href="' . 
+                               $action_url . 
+                               '" style="decoration: underline"> See Medium </a>';
+                }
+                $data_to_send = [
+                    'message' => $message,
+                    'code' => 1
+                ];
+            }
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+            $data_to_send = [
+                'message' => $message,
+                'code' => 0
+            ];
+        }
+
+        return $data_to_send;
+
+    } // finishing_up_media_uploads
 }

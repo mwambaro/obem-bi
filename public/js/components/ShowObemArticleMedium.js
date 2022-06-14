@@ -50,14 +50,16 @@ class ShowObemArticleMedium extends React.Component
             medium_elt = e(
                 'audio',
                 {
-                    className: ''
+                    className: 'embed-responsive text-center',
+                    controls: true
                 },
                 [
                     e(
                         'source',
                         {
                             src: this.props.medium_url,
-                            type: this.props.mime_type
+                            type: this.props.mime_type,
+                            className: 'embed-responsive-item'
                         }
                     ),
                     'No audio'
@@ -79,10 +81,20 @@ class ShowObemArticleMedium extends React.Component
         let outer_div = e(
             'div',
             {
-                className: 'shadow-sm p-1 mb-2 bg-white rounded',
+                className: 'row justify-content-start',
                 style: { margin: '5px', padding: '5px'}
             },
-            medium_elt
+            e(
+                'div',
+                {
+                    className: 'shadow-sm p-1 mb-2 bg-white rounded col-md-6',
+                },
+                e(
+                    'div',
+                    {},
+                    medium_elt
+                )
+            )
         );
 
         return outer_div;
