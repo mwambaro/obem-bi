@@ -64,4 +64,8 @@ Route::get(
     '/obem_site_media/articles_index/{page_number}/{article_guid}',
     [ObemSiteMediaController::class, 'articles_index']
 );
+Route::get(
+    '/obem_main/community',
+    [ObemMainController::class, 'community']
+);
 

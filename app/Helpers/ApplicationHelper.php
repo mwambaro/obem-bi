@@ -262,7 +262,7 @@ function get_partial_text($text, $max_words=20)
  *       ## Heading 2
  * </details>
 */
-function interpolate_article($text, $article_capture, $locale=null)
+function interpolate_article($text, $article_capture=null, $locale=null)
 {
     $txt = $text;
 
@@ -543,6 +543,12 @@ function harvest_analytics($request)
         $request_url = $request->url();
         $string = preg_replace('/http(s)*:\/\//i', '', $request_url);
         $string = preg_replace('/(\/)*obem_main\/home/i', '', $string);
+
+        // Cut short parameterized urls
+        $string = preg_replace('/\A(.+show_article).+/i', '$1', $string);
+        $string = preg_replace('/\A(.+articles_index).+/i', '$1', $string);
+        
+        // Fill in url
         $request_url = trim($string);
 
         $page_view = PageView::create([
@@ -1020,29 +1026,7 @@ function seed_articles()
                 create_article_according_to_capture_to_body_map(
                     $activity_articles_capture_to_body_map, $guid, $locale
                 );
-            }
-
-            // Community
-            $guid = article_containers_guids()['community'];
-            $any = DB::table('obem_site_articles')
-                        ->where('guid', '=', $guid)
-                        ->count();
-            if($any == 0)
-            {
-                $activity_articles_capture_to_body_map = [
-                    // COMMUNITY
-                    __('obem.community_media_capture') => [
-                        date('2022-06-19 08:30:00') => '',
-                        'media' => [
-                            'institution_objective_image.JPG' => 'image/jpeg',
-                            'report_gihanga_3.jpg' => 'image/jpeg',
-                            'report_kiganda_0.jpg' => 'image/jpeg',
-                            'report_muramvya_0.jpg' => 'image/jpeg'
-                        ]
-                    ]
-                ];
-
-            }            
+            }           
         }
 
         App::setLocale($app_locale);

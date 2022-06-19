@@ -12,7 +12,7 @@
             @if($is_admin)
                 <button id="edit-article-button" 
                         title="Edit Article"
-                        style="display: block; position: fixed; bottom: 20px; margin-right: 20px; zIndex: 99; border: none; outline: none; background-color: red; color: white; cursor: pointer; padding: 15px; border-radius: 10px; font-size: 18px">
+                        style="display: block; position: fixed; bottom: 20px; margin-right: 20px; margin-left: 20px; zIndex: 99; border: none; outline: none; background-color: red; color: white; cursor: pointer; padding: 15px; border-radius: 10px; font-size: 18px">
                     {{ __('obem.edit_label') }}
                 </button>
             @endif

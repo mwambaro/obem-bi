@@ -26,6 +26,10 @@
             <a href="<?php echo $news_url; ?>"> See OBEM News </a>
         </div>
 
+        <div style="margin: 10px; padding: 10px">
+            <a href="<?php echo $community_url; ?>"> Community </a>
+        </div>
+
         {{ view('reactjs') }}
         <script src="{{ asset('js/components/Example.js') }}"> </script>
         <script src="{{ asset('js/components/ObemSiteAnalytics.js') }}"> </script>

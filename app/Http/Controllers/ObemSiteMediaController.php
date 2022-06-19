@@ -57,7 +57,8 @@ class ObemSiteMediaController extends Controller
                     // Manage escape issue
                     $json = json_encode($article);
                     // \' maintained
-                    $json = preg_replace('/\\\\\'/', "'", $json);
+                    $json = preg_replace('/\\\\\'/', "’", $json);
+                    $json = preg_replace('/\'/', "", $json);
                     $stringified_article = $json;
                     $obem_article_create_endpoint = action(
                         [
@@ -114,7 +115,7 @@ class ObemSiteMediaController extends Controller
             // Data
             $article_html_body = null;
             $edit_article_url = null;
-            $is_admin = true; //user_has_admin_role();
+            $is_admin = user_has_admin_role();
 
             $article = DB::table('obem_site_articles')
                             ->where([
@@ -171,7 +172,7 @@ class ObemSiteMediaController extends Controller
             // Data
             $total_number_of_pages = 0;
             $obem_articles_page_endpoint = null;
-            $is_admin = true; //user_has_admin_role();
+            $is_admin = user_has_admin_role();
             $new_article_url = null;
             $articles_page = null; // array of {capture:, url: } maps
 
