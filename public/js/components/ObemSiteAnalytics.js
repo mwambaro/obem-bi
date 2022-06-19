@@ -21,7 +21,7 @@ class ObemSiteAnalytics extends React.Component
             let elt = [
                 e('p', {}, [e('strong', {}, `${this.props.number_of_visits_label}: `), analytics.number_of_visits]),
                 e('p', {}, [e('strong', {}, `${this.props.number_of_visitors_label}: `), analytics.number_of_visitors]),
-                e('p', {}, [e('strong', {}, `${this.props.page_visited_label}: `), analytics.page])
+                e('p', {style: {'word-wrap': 'break-word'}}, [e('strong', {}, `${this.props.page_visited_label}: `), analytics.page])
             ];
             inner_array_html.push(
                 e(
