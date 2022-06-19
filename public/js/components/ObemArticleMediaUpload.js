@@ -164,7 +164,7 @@ class ObemArticleMediaUpload extends React.Component
     give_feedback_to_user(html)
     {
         let all_html = `
-            <div class="shadow-sm p-1 mb-2 bg-white rounded verbose-message-div" style="margin: 10px">
+            <div id="all-verbose-message" class="shadow-sm p-1 mb-2 bg-white rounded verbose-message-div" style="margin: 10px">
                 <div style="padding: 10px">
                     ${html}
                 </div>
@@ -172,7 +172,7 @@ class ObemArticleMediaUpload extends React.Component
         `
         $('.verbose-message-div').remove();
         $('#obem_site_media_upload_main_div').prepend(all_html);
-        this.scroll_form_into_view();
+        this.scroll_form_into_view('all-verbose-message');
 
     } // give_feedback_to_user
 
@@ -220,9 +220,10 @@ class ObemArticleMediaUpload extends React.Component
 
     } // center_spinner_in_the_viewport
 
-    scroll_form_into_view()
+    scroll_form_into_view(elt_id=null)
     {
-        var $foo = jQuery('#obem_site_media_upload_main_div'),
+        var id = elt_id === null ? 'obem_site_media_upload_main_div' : elt_id;
+        var $foo = jQuery(`#${id}`),
         elWidth = $foo.width(),
         elHeight = $foo.height(),
         elOffset = $foo.offset();

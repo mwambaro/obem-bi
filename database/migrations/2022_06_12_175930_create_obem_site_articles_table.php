@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('obem_site_articles', function (Blueprint $table) {
             $table->id();
-            $table->string('capture');
+            $table->string('capture')->unique();
             $table->string('locale');
-            $table->string('body');
+            $table->string('guid');
+            $table->longText('body');
             $table->dateTime('date');
             $table->timestamps();
         });

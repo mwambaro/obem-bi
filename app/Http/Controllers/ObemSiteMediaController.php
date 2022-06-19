@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\ObemSiteArticle;
@@ -10,7 +12,7 @@ use App\Models\ObemArticleMedium;
 
 class ObemSiteMediaController extends Controller
 {
-    function new_article(Request $request, $id=-1)
+    function new_article(Request $request, $id=-1, $article_guid=null)
     {
         $fail_safe = __('obem.fail_safe_message');
 
@@ -18,6 +20,7 @@ class ObemSiteMediaController extends Controller
         {
             // Prolog
             load_locale($request);
+            seed_articles();
             $obem_open_graph_proto_locale = 'fr_FR';
             $obem_site_title = obem_site_title(__FUNCTION__);
 
@@ -28,9 +31,21 @@ class ObemSiteMediaController extends Controller
             $should_update = 'false';
             $update_article_note = "";
             $stringified_article = "";
-            $obem_article_create_endpoint = action(
-                [ObemSiteMediaController::class, 'create_article']
-            );
+            $obem_article_create_endpoint = null;
+
+            if($article_guid)
+            {
+                $obem_article_create_endpoint = action(
+                    [ObemSiteMediaController::class, 'create_article'],
+                    ['article_guid' => $article_guid]
+                );
+            }
+            else 
+            {
+                $obem_article_create_endpoint = action(
+                    [ObemSiteMediaController::class, 'create_article']
+                );
+            }
 
             if($id != -1)
             {
@@ -39,7 +54,11 @@ class ObemSiteMediaController extends Controller
                 {
                     $should_update = 'true';
                     $update_article_note = __('obem.update_article_note');
-                    $stringified_article = json_encode($article, 0, 30);
+                    // Manage escape issue
+                    $json = json_encode($article);
+                    // \' maintained
+                    $json = preg_replace('/\\\\\'/', "'", $json);
+                    $stringified_article = $json;
                     $obem_article_create_endpoint = action(
                         [
                             ObemSiteMediaController::class, 
@@ -79,6 +98,160 @@ class ObemSiteMediaController extends Controller
 
     } // new_article
 
+    function show_article(Request $request, $id)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try 
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $article_html_body = null;
+            $edit_article_url = null;
+            $is_admin = true; //user_has_admin_role();
+
+            $article = DB::table('obem_site_articles')
+                            ->where([
+                                ['id', '=', $id],
+                                ['locale', '=', App::currentLocale()]
+                            ])
+                            ->first();
+            if(!$article)
+            {
+                throw new Exception(
+                    'Could not find article whose id is: ' . 
+                    $id . 
+                    ' and locale: ' . 
+                    App::currentLocale()
+                );
+            }
+            $edit_article_url = action([ObemSiteMediaController::class, 'new_article'], ['id' => $article->id]);
+            $article_html_body = interpolate_article($article->body, $article->capture);
+
+            return view('obem_site_media.show_article')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('article_html_body', $article_html_body)
+                    ->with('edit_article_url', $edit_article_url)
+                    ->with('is_admin', $is_admin);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // show_article
+
+    function articles_index(Request $request, $page_number, $article_guid)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try 
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $total_number_of_pages = 0;
+            $obem_articles_page_endpoint = null;
+            $is_admin = true; //user_has_admin_role();
+            $new_article_url = null;
+            $articles_page = null; // array of {capture:, url: } maps
+
+            $page_info = get_page_of_articles($page_number, $article_guid);
+            $articles_page = json_encode($page_info['articles_page']);
+            $total_number_of_pages = $page_info['total_number_of_pages'];
+            $obem_articles_page_endpoint = action(
+                [ObemSiteMediaController::class, 'page_info'], 
+                ['article_guid' => $article_guid]
+            );
+            $new_article_url = action(
+                [ObemSiteMediaController::class, 'new_article'], 
+                ['id' => -1, 'article_guid' => $article_guid]
+            );
+
+            return view('obem_site_media.articles_index')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('total_number_of_pages', $total_number_of_pages)
+                    ->with('articles_page', $articles_page)
+                    ->with('obem_articles_page_endpoint', $obem_articles_page_endpoint)
+                    ->with('article_guid', $article_guid)
+                    ->with('is_admin', $is_admin)
+                    ->with('new_article_url', $new_article_url);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // articles_index
+
+    function page_info(Request $request, $article_guid)
+    {
+        
+        try 
+        {
+            $data_to_send = null;
+            if(!$request->has('page_number'))
+            {
+                $data_to_send = [
+                    'code' => 0,
+                    'data' => 'No page_number key was found in request'
+                ];
+            }
+            else 
+            {
+                $page_number = $request->input('page_number');
+                $page_info = get_page_of_articles($page_number, $article_guid);
+                $data_to_send = [
+                    'code' => 1,
+                    'data' => json_encode($page_info['articles_page'])
+                ];
+            }
+
+            // return data to client
+            if(!$data_to_send)
+            {
+                $data_to_send = [
+                    'data' => __('obem.something_went_wrong'),
+                    'code' => 0
+                ];
+            }
+            return response()->json($data_to_send);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+    } // page_info
+
     function new_media(Request $request, $id=-1)
     {
         $fail_safe = __('obem.fail_safe_message');
@@ -87,6 +260,7 @@ class ObemSiteMediaController extends Controller
         {
             // Prolog
             load_locale($request);
+            seed_articles();
             $obem_open_graph_proto_locale = 'fr_FR';
             $obem_site_title = obem_site_title(__FUNCTION__);
 
@@ -151,6 +325,8 @@ class ObemSiteMediaController extends Controller
         try 
         {
             // Prolog
+            load_locale($request);
+            seed_articles();
             $obem_open_graph_proto_locale = 'fr_FR';
             $site_title = obem_site_title(__FUNCTION__);
 
@@ -196,6 +372,9 @@ class ObemSiteMediaController extends Controller
 
         try 
         {
+            // Prolog
+            load_locale($request);
+
             $article = ObemSiteArticle::find($id);
             if($article)
             {
@@ -231,13 +410,16 @@ class ObemSiteMediaController extends Controller
 
     } // update_article
 
-    function create_article(Request $request)
+    function create_article(Request $request, $article_guid=null)
     {
         $fail_safe = __('obem.fail_safe_message');
 
         try 
         {
-            $data_to_send = $this->store_article($request, false, null);
+            // Prolog
+            load_locale($request);
+
+            $data_to_send = $this->store_article($request, false, null, $article_guid);
 
             // return data to client
             if(!$data_to_send)
@@ -269,6 +451,9 @@ class ObemSiteMediaController extends Controller
 
         try 
         {
+            // Prolog
+            load_locale($request);
+
             if($request->has('uploads_completed'))
             {
                 $data_to_send = $this->finishing_up_media_uploads(true);
@@ -306,6 +491,9 @@ class ObemSiteMediaController extends Controller
 
         try 
         {
+            // Prolog
+            load_locale($request);
+
             $data_to_send = null;
             if($request->has('uploads_completed'))
             {
@@ -338,7 +526,7 @@ class ObemSiteMediaController extends Controller
 
     } // upload_media
 
-    function store_article(Request $request, $should_update=false, $article=null)
+    function store_article(Request $request, $should_update=false, $article=null, $article_guid=null)
     {
         $data = null;
 
@@ -376,7 +564,7 @@ class ObemSiteMediaController extends Controller
                     $stored = $obem_site_article->update([
                         'capture' => $capture,
                         'locale' => $locale,
-                        'body' => $body,
+                        'body' => preg_replace('/\n/', "\\n", $body),
                         'date' => $date_time
                     ]);
                     $action_url = action(
@@ -392,10 +580,31 @@ class ObemSiteMediaController extends Controller
                     $obem_site_article = ObemSiteArticle::create([
                         'capture' => $capture,
                         'locale' => $locale,
-                        'body' => $body,
+                        'guid' => $article_guid,
+                        'body' => preg_replace('/\n/', "\\n", $body),
                         'date' => $date_time
                     ]);
                     $stored = $obem_site_article->save();
+
+                    // Save it as default in the othe languages, too
+                    // to avoid database miss when in production
+                    $locales = get_supported_languages();
+                    foreach($locales as $key => $lc)
+                    {
+                        if($lc['locale'] == $locale)
+                        {
+                            continue;
+                        }
+                        $lc_capture = $capture . ' - ' . $lc['locale'];
+                        $obem_article = ObemSiteArticle::create([
+                            'capture' => $lc_capture,
+                            'locale' => $lc['locale'],
+                            'body' => preg_replace('/\n/', "\\n", $body),
+                            'date' => $date_time
+                        ]);
+                        $stored = $obem_article->save();
+                    }
+                    
                     $action_url = action(
                         [ObemSiteMediaController::class, 'new_media']
                     );

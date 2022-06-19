@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('mime_type');
             $table->string('media_file_name');
-            $table->string('media_file_path');
+            $table->string('media_file_path')->unique();
             $table->integer('article_id');
             $table->timestamps();
         });

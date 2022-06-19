@@ -2,7 +2,7 @@
         
         <div class="container-fluid">
             <div class="text-center">
-                <img src="{{ asset('images/obem_banner_image.JPG') }}" class="img-fluid banner-image" />
+                <img src="{{ banner_image_asset_url() }}" class="img-fluid banner-image" />
             </div>
             <hr style="color: red; margin: 3px; height: 5px"> 
             <hr style="color: green; margin: 3px; height: 5px"> 

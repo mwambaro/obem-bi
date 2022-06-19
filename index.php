@@ -56,7 +56,7 @@
         <script>
             var a = setTimeout(function(){
                 window.location = "https://obem.bi/public/";
-            }, 2000);
+            }, 1000);
         </script>
     </body>
 </html>

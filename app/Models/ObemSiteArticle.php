@@ -18,6 +18,7 @@ class ObemSiteArticle extends Model
         'capture',
         'locale',
         'body',
-        'date'
+        'date',
+        'guid'
     ];
 }

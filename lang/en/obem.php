@@ -3,6 +3,8 @@
 return [
     'hello' => 'Hello world',
     'news_label' => 'Events',
+    'next_label' => 'Next',
+    'new_label' => '+',
     'community_label' => 'Community',
     'activities_label' => 'Activities',
     'services_label' => 'Services',
@@ -102,16 +104,28 @@ return [
     'model_destroy_success' => 'User was successfully destroyed.',
     'mpanda_and_musigati_events_01_capture' => 'Journée Porte Ouverte à Mpanda et Musigati－01',
     'mpanda_and_musigati_events_01' => 'Le Ministère de la Fonction Publique, du Travail, et de l’Emploi, via son service public d’emploi (OBEM), a organisé des journées portes ouvertes à Mpanda et Musigati. Des gens de tout genre se sont rués vers la localité pour voir ce qui se passait et nous ont fourni assez d’information pour leur rendre service.
-    <##>Des chômeurs, étant allés à l’école ou pas, sont venus vers nous pour que nous puissions les aider à se procurer du travail rentable. Ils sont venus avec leurs dossiers et nous ont facilité la tâche de remplissage des formulaires pour candidats.',
+      <##>
+      media_markup events_01.JPG
+      <##>
+      Des chômeurs, étant allés à l’école ou pas, sont venus vers nous pour que nous puissions les aider à se procurer du travail rentable. Ils sont venus avec leurs dossiers et nous ont facilité la tâche de remplissage des formulaires pour candidats.',
     'mpanda_and_musigati_events_02_capture' => 'Journée Porte Ouverte à Mpanda et Musigati－02',
     'mpanda_and_musigati_events_02' => 'Des gens étaient venus nombreux nous soutenir et ils remplissaient la salle d’acceuil. La salle était bien aérée, avec un plancher à escaliers pour que tout le monde puisse voir les exhibitions, et était assez large pour contenir une petite centaine d’individus.
-    <##>Les célébrations se sont vues honorées par les tambourinaires culturels et des individus avec leurs dossiers de demande d’emploi à la main. Des mots ont été mentionnés à propos des objectifs visés par OBEM tels que ‘Procéder à la collecte, à la centralisation, à l’analyse et à la diffusion des données relatives au marché de l’emploi’ et ‘Réaliser toutes études sur l’emploi et la formation professionnelle jugées indispensable’.',
+      <##>
+      media_markup events_02.JPG
+      <##>
+      Les célébrations se sont vues honorées par les tambourinaires culturels et des individus avec leurs dossiers de demande d’emploi à la main. Des mots ont été mentionnés à propos des objectifs visés par OBEM tels que ‘Procéder à la collecte, à la centralisation, à l’analyse et à la diffusion des données relatives au marché de l’emploi’ et ‘Réaliser toutes études sur l’emploi et la formation professionnelle jugées indispensable’.',
     'ruhororo_commune_events_03_capture' => 'Journée Porte Ouverte à Ruhororo－01',
     'ruhororo_commune_events_03' => 'Le Ministère de la Fonction Publique, du Travail, et de l’Emploi, via son service public d’emploi (OBEM), en collaboration avec PRODEFI/EJR, organise une journée porte ouverte sur l’emploi des jeunes en commune Ruhororo, province Ngozi.
-    <##>Cette journée nous a permis d’atteindre les objectif d’OBEM tels que ‘Canaliser toutes les offres et demandes d’emploi des secteurs public et privé et les mettre à la disposition du public’ et ‘Contribuer à l’élaboration des stratégies de mobilisation des partenaires et des ressources pour la promotion et la création d’emploi’.',
+      <##>
+      media_markup events_03.JPG
+      <##>
+      Cette journée nous a permis d’atteindre les objectif d’OBEM tels que ‘Canaliser toutes les offres et demandes d’emploi des secteurs public et privé et les mettre à la disposition du public’ et ‘Contribuer à l’élaboration des stratégies de mobilisation des partenaires et des ressources pour la promotion et la création d’emploi’.',
     'ruhororo_commune_events_04_capture' => 'Journée Porte Ouverte à Ruhororo－02',
     'ruhororo_commune_events_04' => 'De nombreux gens de la localité et des passants sont venus nous soutenir dans notre célébration de cette journée porte ouverte. Les autorités locales ont coopéré avec nous durant toute la journée.
-    <##>Des particuliers, des coopératives, et des associations avaient été invités pour exhiber au public et à nous les produits et services qui découlent de leur labeur. Des danses locales culturelles et des tambours ont accompagné cette journée porte ouverte.',
+      <##>
+      media_markup events_04.JPG
+      <##>
+      Des particuliers, des coopératives, et des associations avaient été invités pour exhiber au public et à nous les produits et services qui découlent de leur labeur. Des danses locales culturelles et des tambours ont accompagné cette journée porte ouverte.',
     'role_label' => 'Role',
     'Admin' => 'Administrator',
     'Client' => 'Client',
@@ -182,23 +196,23 @@ return [
     <##>
     En date du 30 novembre au 01 décembre 2017, l’Office Burundais de l’Emploi et de la Main d’œuvre(OBEM) avec l’Appui du PRODEFI a organisé une journée porte-ouverte sur les activités entrepreneuriales  des jeunes chercheurs d’emplois appuyés par le Projet EJR en Province BUBANZA.
     <##>
-    image_mark_0 report_gihanga_0.jpg
+    media_markup report_gihanga_0.jpg
     <##>
     ## L’ouverture de la journée porte -ouverte
     <##>
     La cérémonie d’ouverture de la Journée porte-ouverte a été marquée par deux allocutions respectivement celle du Représentant de l’Administrateur Communal de GIHANGA et celle de l’Assistant du Ministre de la Fonction Publique, du Travail et de l’Emploi entrecoupée par une danse traditionnelle.
     <##>
-    image_mark_1 report_gihanga_1.jpg
+    media_markup report_gihanga_1.jpg
     <##>
     Dans son allocution, Monsieur l’Administrateur communal a remercié le Ministère de la Fonction Publique, du Travail et de l’Emploi via l’OBEM et le PRODEFI d’avoir organisé la journée porte-ouverte à GIHANGA.
     <##>
-    image_mark_2 report_gihanga_2.jpg
+    media_markup report_gihanga_2.jpg
     <##>
     Il a interpellé les jeunes chercheurs d’emploi de la Commune de Gihanga de s’affairer à l’élaboration de projets pour lutter contre la pauvreté qui sévit dans la commune et l’oisiveté qui prédomine chez les jeunes lauréats de l’école secondaire. Il a en outre fait remarquer que la commune regorge de plusieurs potentialités qui devraient être explorées pour le développement de la commune.
     <##>
     A l’allocution de l’Administrateur de la Commune Gihanga a suivi celle de  l’Assistant du Ministre de la Fonction Publique, du Travail et de l’Emploi. Celui-ci a d’abord remercié le Seigneur Tout Puissance pour sa protection et Monsieur l’Administrateur de la Commune GIHANGA et ses collaborateurs pour leur accueil et pour leur implication dans l’organisation de l’activité.
     <##>
-    image_mark_3 report_gihanga_3.jpg
+    media_markup report_gihanga_3.jpg
     <##>
     Il a parlé de la problématique de l’emploi des jeunes qui a poussé le Gouvernement Burundais à adopter la Politique Nationale de l’Emploi dont l’opérationnalisation a nécessité la mise en place de l’OBEM. Cette dernière institution a la charge non seulement d’aider les jeunes dans le développement de l’esprit entrepreneurial et l’élaboration des projets de création d’emploi mais aussi de disponibiliser les statistiques sur l’emploi. 
     <##>
@@ -223,19 +237,19 @@ return [
     <##>
     #### La transformation de la Banane en farine
     <##>
-    image_mark_4 report_gihanga_4.jpg
+    media_markup report_gihanga_4.jpg
     <##>
     #### La pisciculture ou élevage du poisson 
     <##>
-    image_mark_5 report_gihanga_5.jpg
+    media_markup report_gihanga_5.jpg
     <##>
     #### La production du miel
     <##>
-    image_mark_6 report_gihanga_6.jpg
+    media_markup report_gihanga_6.jpg
     <##>
     #### La fabrication des beignets
     <##>
-    image_mark_7 report_gihanga_7.jpg
+    media_markup report_gihanga_7.jpg
     <##>
     #### La fabrication de l’huile de palme 
     <##>
@@ -245,7 +259,7 @@ return [
     <##>
     En marge de la Journée porte –ouverte, les cadres de l’OBEM ont procédé à l’enregistrement des chercheurs d’emploi, ce qui permettra d’alimenter la base de données de cette institution.
     <##>
-    image_mark_8 report_gihanga_0.jpg
+    media_markup report_gihanga_0.jpg
     <##>
     Lors de la présente journée porte –ouverte de GIHANGA, plus de 359 jeunes chercheurs d’emploi ont été enregistrés et disposent de leurs cartes de chercheurs d’emplois.
     <##>
@@ -270,17 +284,17 @@ return [
     <##>
     L’Assistant du ministre a, entre autre, rappelé aux jeunes chercheurs d’emploi que l’Etat n’est plus en mesure d’octroyer des emplois à tous les jeunes et leur a conseillé de se lancer dans l’autocréation d’emploi pour lutter contre le chômage et contribuer au développement du pays. Enfin, Il a terminé son allocution en demandant aux jeunes de se faire inscrire à l’OBEM afin d’aider le Gouvernement à mettre en place une politique adéquate pour lutter contre le chômage.
     <##>
-    image_mark_0 report_kiganda_0.jpg
+    media_markup report_kiganda_0.jpg
     <##>
-    image_mark_t Photo illustrant les cérémonies d\'ouverture de la journée porte ouverte en Commune Kiganda
+    media_markup_t Photo illustrant les cérémonies d\'ouverture de la journée porte ouverte en Commune Kiganda
     <##>
-    image_mark_1 report_kiganda_1.jpg
+    media_markup report_kiganda_1.jpg
     <##>
     ## LES TEMOIGNAGES
     <##>
     Après l’ouverture des activités par l’Assistant du Ministre, les jeunes entrepreneurs résidents en province  de MURAMVYA ont témoigné de leurs expériences en faveur des jeunes chercheurs d’emploi résident en commune Muramvya.
     <##>
-    image_mark_2 report_kiganda_2.jpg
+    media_markup report_kiganda_2.jpg
     <##>
     Le premier témoignage a été fait par un jeune entrepreneur de la commune MBUYE qui a créé une entreprise de fabrication des savons. Il a encouragé les autres jeunes à s’investir dans la création d’emploi. Le jeune entrepreneur a remercié le PRODEFI pour son soutien financier.
     <##>
@@ -325,9 +339,9 @@ return [
     <##>
     En dates du 13 au 15 juin 2019, l’Office Burundais de l’Emploi et de la Main d’œuvre a organisé, avec l’appui financier du PRODEFI, une campagne d’enregistrement couplée par des séances de partages d’expériences et témoignages des jeunes entrepreneurs (diplômés) qui ont bien réussi à créer leurs propres petites entreprises de production. Il faut souligner que ceux derniers sont des résidents de la province MURAMVYA. Cette campagne a pour objectif global « collecte des informations sur la situation du chômage des jeunes diplômés résidents en province »
     <##>
-    image_mark_0 report_muramvya_0.jpg
+    media_markup report_muramvya_0.jpg
     <##>
-    image_mark_1 report_muramvya_1.jpg
+    media_markup report_muramvya_1.jpg
     <##>
     Après avoir présenté le programme, le modérateur a passé la parole au conseiller de l’administrateur chargé des affaires sociales qui a d’abord souhaité le bienvenue au Représentant du Ministère ayant l’emploi dans ses attributions, au responsable de l’OBEM ainsi qu’au représentant du PRODEFI. Elle a également  exprimé ses vifs remerciements à ces derniers pour avoir organisé cette activité de grande importance en faveur des jeunes résidents en commune de Muramvya. En outre, elle a salué les efforts fournis par l’OBEM pour son implication et pour l’intérêt qu’il a porté à ce programme de collecte des données sur le marché de l’emploi burundais afin de promouvoir les jeunes aux initiatives de création de leurs propres emplois. En terminant ses propos, Madame le conseiller de l’administrateur a lancé un appel aux plus hautes autorités du Burundi à faire face aux besoins et préoccupations des jeunes; demandant aux jeunes chercheurs d’emploi de se faire enregistrer massivement  et en souhaitant à l’OBEM un bon déroulement des activités.
     <##>
@@ -345,7 +359,7 @@ return [
     <##>
     Le dernier témoignage a été fait par un jeune entrepreneur de la commune Bukeye qui a installé un studio et un secrétariat public. Il a encouragé les jeunes chercheurs d’emploi de créer leurs propres emplois pour sortir du chômage.
     <##>
-    image_mark_2 report_muramvya_2.jpg
+    media_markup report_muramvya_2.jpg
     <##>
     ## SEANCES D\'ENREGISTREMENT DES CHERCHEURS D’EMPLOI
     <##>

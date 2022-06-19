@@ -29,15 +29,19 @@ Route::post(
     [ObemSiteMediaController::class, 'update_article']
 );
 Route::post(
-    '/obem_site_media/create_article',
+    '/obem_site_media/create_article/{article_guid?}',
     [ObemSiteMediaController::class, 'create_article']
 );
 Route::post(
     '/obem_site_media/update_media/{id}',
     [ObemSiteMediaController::class, 'update_media']
 );
+Route::post(
+    '/obem_site_media/page_info/{article_guid}',
+    [ObemSiteMediaController::class, 'page_info']
+);
 Route::get(
-    '/obem_site_media/new_article/{id?}',
+    '/obem_site_media/new_article/{id?}/{article_guid?}',
     [ObemSiteMediaController::class, 'new_article']
 );
 Route::get(
@@ -52,3 +56,12 @@ Route::get(
     '/obem_site_media/serve_medium/{id}',
     [ObemSiteMediaController::class, 'serve_medium']
 );
+Route::get(
+    '/obem_site_media/show_article/{id}',
+    [ObemSiteMediaController::class, 'show_article']
+);
+Route::get(
+    '/obem_site_media/articles_index/{page_number}/{article_guid}',
+    [ObemSiteMediaController::class, 'articles_index']
+);
+

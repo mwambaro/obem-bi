@@ -17,13 +17,13 @@
             <div id="pages_analytics" style="margin: 10px; padding: 10px">
             </div>
         @endif
-        
-        <div id="new-article" style="margin: 10px; padding: 10px">
-            <a href="<?php echo $create_article_url; ?>"> Create Article </a>
+
+        <div id="show-article" style="margin: 10px; padding: 10px">
+            <a href="<?php echo $show_article_url; ?>"> See OBEM Activities </a>
         </div>
-        
-        <div id="update-article" style="margin: 10px; padding: 10px">
-            <a href="<?php echo $update_article_url; ?>"> Update Article </a>
+
+        <div id="show-news" style="margin: 10px; padding: 10px">
+            <a href="<?php echo $news_url; ?>"> See OBEM News </a>
         </div>
 
         {{ view('reactjs') }}
