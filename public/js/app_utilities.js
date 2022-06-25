@@ -522,6 +522,26 @@ jQuery.fn.isMobile = function()
 
 // END Classes
 
+function sleep(ms)
+{
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function scroll_element_into_view(elt_id)
+{
+    if(elt_id === null)
+    {
+        return;
+    }
+    var id = elt_id;
+    var $foo = jQuery(`#${id}`),
+    elWidth = $foo.width(),
+    elHeight = $foo.height(),
+    elOffset = $foo.offset();
+    jQuery(window)
+        .scrollTop(elOffset.top + elHeight);
+
+} // scroll_element_into_view
 
 function scale_obem_site_media()
 {
@@ -540,7 +560,7 @@ function scale_obem_site_media()
             }
         }
     }
-}
+} // scale_obem_site_media
 
 function circle_shape_element(id)
 {

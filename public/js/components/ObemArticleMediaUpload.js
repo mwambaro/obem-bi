@@ -18,6 +18,9 @@ class ObemArticleMediaUpload extends React.Component
 
     render()
     {
+        let container = $(document).isMobile() === true ? 
+                        'container-fluid' : 
+                        'container';
         let spinner = e(
             'div',
             {
@@ -93,33 +96,47 @@ class ObemArticleMediaUpload extends React.Component
         let form_div = e(
             'div',
             {
-                className: 'shadow-sm p-1 mb-2 bg-white rounded',
-                id: 'obem_site_media_upload_main_div',
-                style: { padding: '10px' }
+                className: 'row justify-content-center'
             },
-            [
-                e(
-                    'h3',
-                    { className: 'text-center' },
-                    this.props.obem_site_media_upload_form_title
-                ),
-                e(
-                    'form',
-                    {
-                        role: 'form',
-                        encType: 'multipart/form-data',
-                        name: 'obem_site_media_upload_form',
-                        id: 'obem-site-media-upload-form',
-                        action: this.props.obem_media_upload_endpoint,
-                        style: { backgroundColor: '#a68353' }
-                    },
-                    [csrf_token, input_div, submit_div]
-                ),
-                spinner
-            ]
+            e(
+                'div',
+                {
+                    className: 'col-md-8 shadow-sm p-1 mb-2 bg-white rounded',
+                    id: 'obem_site_media_upload_main_div',
+                    style: { padding: '10px' }
+                },
+                [
+                    e(
+                        'h3',
+                        { className: 'text-center' },
+                        this.props.obem_site_media_upload_form_title
+                    ),
+                    e(
+                        'form',
+                        {
+                            role: 'form',
+                            encType: 'multipart/form-data',
+                            name: 'obem_site_media_upload_form',
+                            id: 'obem-site-media-upload-form',
+                            action: this.props.obem_media_upload_endpoint,
+                            style: { backgroundColor: '#a68353' }
+                        },
+                        [csrf_token, input_div, submit_div]
+                    ),
+                    spinner
+                ]
+            )
         );
 
-        return form_div;
+        let outer_div = e(
+            'div',
+            {
+                className: container
+            },
+            form_div
+        );
+
+        return outer_div;
 
     } // render
 
@@ -172,7 +189,7 @@ class ObemArticleMediaUpload extends React.Component
         `
         $('.verbose-message-div').remove();
         $('#obem_site_media_upload_main_div').prepend(all_html);
-        this.scroll_form_into_view('all-verbose-message');
+        scroll_element_into_view('all-verbose-message');
 
     } // give_feedback_to_user
 
@@ -219,18 +236,6 @@ class ObemArticleMediaUpload extends React.Component
             .scrollLeft(elOffset.left + (elWidth/2) - (viewportWidth/2));
 
     } // center_spinner_in_the_viewport
-
-    scroll_form_into_view(elt_id=null)
-    {
-        var id = elt_id === null ? 'obem_site_media_upload_main_div' : elt_id;
-        var $foo = jQuery(`#${id}`),
-        elWidth = $foo.width(),
-        elHeight = $foo.height(),
-        elOffset = $foo.offset();
-        jQuery(window)
-            .scrollTop(elOffset.top + elHeight);
-
-    } // scroll_form_into_view
 
     send_uploads_completed_message(data)
     {

@@ -4,6 +4,7 @@ return [
     'hello' => 'Hello world',
     'news_label' => 'Events',
     'next_label' => 'Next',
+    'previous_label' => 'Previous',
     'new_label' => '+',
     'community_label' => 'Community',
     'activities_label' => 'Activities',
@@ -13,6 +14,15 @@ return [
     'obem_acronym' => 'OBEM',
     'create_media' => 'Create Media',
     'update_media' => 'Update Media',
+    'address_label' => 'Full address',
+    'phone_number_label' => 'Phone number',
+    'highest_degree_label' => 'Highest degree. E.g. Bachelor’s in Communication and Digital Processing',
+    'highest_degree_short_label' => 'Highest degree',
+    'cv_label' => 'Cv or resume (pdf or doc(x))',
+    'cv_short_label' => 'Cv or resumé',
+    'cover_letter_label' => 'Cover letter',
+    'cover_letter_short_label' => 'Cover letter',
+    'obem_employment_folder_form_title' => 'OBEM Employment Folder Form',
     'fail_safe_title' => 'OBEM - Maintenance Message',
     'something_went_wrong' => 'Yikes something must have gone wrong on our end',
     'update_article_note' => 'When you update an article, you have to update all media in the article too, or not update any media at all.',
@@ -58,13 +68,14 @@ return [
     'capture_label' => 'Capture',
     'edit_label' => 'Edit',
     'show_label' => 'Show',
-    'destroy_label' => 'Destroy',
+    'destroy_label' => 'Remove',
     'new_user' => 'New User',
     'users_label' => 'Users',
     'phone_label' => 'Phone',
     'logout_label' => 'Logout',
     'home_label' => 'Home',
-    'profile_label' => 'Profile',
+    'profile_photo_label' => 'Profile photo',
+    'view_mode_label' => 'View Mode',
     'number_of_visits' => 'Number of visits',
     'number_of_visitors' => 'Number of visitors',
     'page_visited' => 'Page visited',
@@ -145,12 +156,12 @@ return [
     'muramvya_porte_ouverte_report' => 'Journée Porte Ouverte Commune Muramvya',
     'obem_site_description' => 'La lutte contre le chômage et la pauvreté est un défi pour nous tous. La réponse à cette problématique, retrouvons-la à l’OBEM',
     'obem_open_graph_proto_title' => 'OBEM Promeut et Crée des Emplois',
-    'obem_open_graph_proto_description' => 'Mission d\'OBEM: Promouvoir et créer des emplois décents pour tous',
+    'obem_open_graph_proto_description' => 'Mission d’OBEM: Promouvoir et créer des emplois décents pour tous',
     'cookies_policy_body_text' => '
       <p><h3> Cookies Policy </h3></p>
       <p>
         For good user experience, we use cookies all over our web site to store some user details that are important
-        for the smooth experience of the Web UI\'s. By clicking OK at the bottom, you agree to our Cookies Policy as
+        for the smooth experience of the Web UI’s. By clicking OK at the bottom, you agree to our Cookies Policy as
         described here.
       </p>
     ',
@@ -158,7 +169,7 @@ return [
       <p><h3> Privacy Policy </h3></p>
       <p>
         We do not collect any private data except explicitly requested through our forms. Private data like money
-        transfer details are not disclosed to any third parties at all. In fact, they are handled using secure API\'s.
+        transfer details are not disclosed to any third parties at all. In fact, they are handled using secure API’s.
         Our web site does not do any background data collection to be sent for site maintenance or any suchlike
         usage.
       </p>
@@ -286,7 +297,7 @@ return [
     <##>
     media_markup report_kiganda_0.jpg
     <##>
-    media_markup_t Photo illustrant les cérémonies d\'ouverture de la journée porte ouverte en Commune Kiganda
+    media_markup_t Photo illustrant les cérémonies d’ouverture de la journée porte ouverte en Commune Kiganda
     <##>
     media_markup report_kiganda_1.jpg
     <##>
@@ -302,7 +313,7 @@ return [
     <##>
     Le dernier témoignage a été fait par une fille de la commune MBUYE qui s’est investie dans la culture et la commercialisation des champignons. Elle a expliqué aux autres jeunes le processus de la culture des champignons. Le jeune entrepreneur n’a pas manqué de remercier le projet EJR pour son accompagnement.
     <##>
-    ## SEANCES D\'ENREGISTREMENT DES CHERCHEURS D’EMPLOI
+    ## SEANCES D’ENREGISTREMENT DES CHERCHEURS D’EMPLOI
     <##>
     ### Première journée du 11 Juin
     <##>
@@ -361,7 +372,7 @@ return [
     <##>
     media_markup report_muramvya_2.jpg
     <##>
-    ## SEANCES D\'ENREGISTREMENT DES CHERCHEURS D’EMPLOI
+    ## SEANCES D’ENREGISTREMENT DES CHERCHEURS D’EMPLOI
     <##>
     ### Première journée du 13 Juin
     <##>

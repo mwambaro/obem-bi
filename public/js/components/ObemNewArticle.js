@@ -12,6 +12,10 @@ class ObemNewArticle extends React.Component
 
     render()
     {
+        let container = $(document).isMobile() === true ? 
+                        'container-fluid' : 
+                        'container';
+        
         let update_article_note = e(
             'div'
         );
@@ -141,37 +145,51 @@ class ObemNewArticle extends React.Component
         let form_div = e(
             'div',
             {
-                className: 'shadow-sm p-1 mb-2 bg-white rounded',
-                id: 'obem_site_article_new_main_div',
-                style: { padding: '10px' }
+                className: 'row justify-content-center'
             },
-            [
-                e(
-                    'h3',
-                    { className: 'text-center' },
-                    this.props.obem_site_article_new_form_title
-                ),
-                e(
-                    'form',
-                    {
-                        role: 'form',
-                        encType: 'multipart/form-data',
-                        name: 'obem_site_article_new_form',
-                        id: 'obem-site-article-new-form',
-                        action: this.props.obem_article_create_endpoint,
-                        style: { backgroundColor: '#a68353' }
-                    },
-                    [
-                        csrf_token, capture_input_div, date_input_div, 
-                        supported_languages_select_div, body_textarea_div,  
-                        submit_div
-                    ]
-                ),
-                update_article_note
-            ]
+            e(
+                'div',
+                {
+                    className: 'col-md-8 shadow-sm p-1 mb-2 bg-white rounded',
+                    id: 'obem_site_article_new_main_div',
+                    style: { padding: '10px' }
+                },
+                [
+                    e(
+                        'h3',
+                        { className: 'text-center' },
+                        this.props.obem_site_article_new_form_title
+                    ),
+                    e(
+                        'form',
+                        {
+                            role: 'form',
+                            encType: 'multipart/form-data',
+                            name: 'obem_site_article_new_form',
+                            id: 'obem-site-article-new-form',
+                            action: this.props.obem_article_create_endpoint,
+                            style: { backgroundColor: '#a68353' }
+                        },
+                        [
+                            csrf_token, capture_input_div, date_input_div, 
+                            supported_languages_select_div, body_textarea_div,  
+                            submit_div
+                        ]
+                    ),
+                    update_article_note
+                ]
+            )
         );
 
-        return form_div;
+        let outer_div = e(
+            'div',
+            {
+                className: container
+            },
+            form_div
+        );
+
+        return outer_div;
 
     } // render
 
@@ -187,7 +205,7 @@ class ObemNewArticle extends React.Component
         {
             if(this.props.should_update === 'true')
             {
-                console.log("JSON: " + this.props.article);
+                //console.log("JSON: " + this.props.article);
                 let article = JSON.parse(this.props.article);
                 if(article)
                 {
@@ -228,6 +246,11 @@ class ObemNewArticle extends React.Component
                         body: document.obem_site_article_new_form.body.value,
                         _token: document.obem_site_article_new_form._token.value
                     };
+                    if(this.props.article_guid != '')
+                    {
+                        form_data['article_guid'] = this.props.article_guid;
+                    }
+
                     var dataToSend = form_data;
                     var callback = (dataReceived, status, xq) => {
                         // use the data received
@@ -343,6 +366,7 @@ ObemNewArticle.propTypes = {
     obem_site_article_new_form_title: PropTypes.string,
     obem_article_create_endpoint: PropTypes.string,
     update_article_note: PropTypes.string,
+    article_guid: PropTypes.string,
     article: PropTypes.string, // stringified article model {capture:, locale:, body:, date}
     csrf_token: PropTypes.string
 };

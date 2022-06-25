@@ -30,6 +30,7 @@
                             obem_site_article_new_form_title: "{{ __('obem.obem_site_article_new_form_title') }}",
                             obem_article_create_endpoint: '<?php echo $obem_article_create_endpoint; ?>',
                             update_article_note: '<?php echo $update_article_note; ?>',
+                            article_guid: '<?php echo $article_guid; ?>',
                             article: '<?php echo $stringified_article; ?>',
                             submit_label: "{{ __('obem.submit_label') }}",
                             csrf_token: "{{ csrf_token() }}"

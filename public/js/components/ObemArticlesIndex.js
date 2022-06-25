@@ -64,6 +64,7 @@ class ObemArticlesIndex extends React.Component
                 articles_page: JSON.parse(this.props.articles_page),
                 total_number_of_pages: this.props.total_number_of_pages,
                 next_label: this.props.next_label,
+                previous_label: this.props.previous_label,
                 obem_articles_page_endpoint: this.props.obem_articles_page_endpoint,
                 csrf_token: this.props.csrf_token
             }
@@ -78,6 +79,7 @@ ObemArticlesIndex.propTypes = {
     articles_page: PropTypes.string, // stringified array of {capture:, url:}
     total_number_of_pages: PropTypes.string,
     next_label: PropTypes.string,
+    previous_label: PropTypes.string,
     obem_articles_page_endpoint: PropTypes.string,
     csrf_token: PropTypes.string
 };

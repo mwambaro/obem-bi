@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ObemMainController;
+use App\Http\Controllers\PageViewController;
 use App\Http\Controllers\ObemSiteMediaController;
+use App\Http\Controllers\EmploymentFoldersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +18,15 @@ use App\Http\Controllers\ObemSiteMediaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get(
+    '/', 
+    [ObemMainController::class, 'home']
+);
 
-Route::get('/obem_main/home', [ObemMainController::class, 'home']);
+Route::post(
+    '/obem_main/locale', 
+    [ObemMainController::class, 'locale']
+);
 Route::post(
     '/obem_site_media/upload_media', 
     [ObemSiteMediaController::class, 'upload_media']
@@ -39,6 +46,50 @@ Route::post(
 Route::post(
     '/obem_site_media/page_info/{article_guid}',
     [ObemSiteMediaController::class, 'page_info']
+);
+Route::post(
+    '/employment_folders/update_employment_folder/{id}',
+    [EmploymentFoldersController::class, 'update_employment_folder']
+);
+Route::post(
+    '/employment_folders/delete_employment_folder/{id}',
+    [EmploymentFoldersController::class, 'delete_employment_folder']
+);
+Route::post(
+    '/employment_folders/create_employment_folder',
+    [EmploymentFoldersController::class, 'create_employment_folder']
+);
+Route::post(
+    '/users/update_user/{id}',
+    [UsersController::class, 'update_user']
+);
+Route::post(
+    '/users/delete_user/{id}',
+    [UsersController::class, 'delete_user']
+);
+Route::post(
+    '/users/create_user',
+    [UsersController::class, 'create_user']
+);
+Route::post(
+    '/users/sign_in',
+    [UsersController::class, 'sign_in']
+);
+Route::post(
+    '/users/create_profile_photo/{id}',
+    [UsersController::class, 'create_profile_photo']
+);
+Route::get(
+    '/obem_main/home', 
+    [ObemMainController::class, 'home']
+);
+Route::get(
+    '/obem_main/orientation',
+    [ObemMainController::class, 'orientation']
+);
+Route::get(
+    '/page_views/analytics',
+    [PageViewController::class, 'index']
 );
 Route::get(
     '/obem_site_media/new_article/{id?}/{article_guid?}',
@@ -67,5 +118,37 @@ Route::get(
 Route::get(
     '/obem_main/community',
     [ObemMainController::class, 'community']
+);
+Route::get(
+    '/employment_folders/new_employment_folder/{id?}/{new_user_id?}',
+    [EmploymentFoldersController::class, 'new_employment_folder']
+);
+Route::get(
+    '/employment_folders/serve_cv/{id}',
+    [EmploymentFoldersController::class, 'serve_cv']
+);
+Route::get(
+    '/employment_folders/serve_cover_letter/{id}',
+    [EmploymentFoldersController::class, 'serve_cover_letter']
+);
+Route::get(
+    '/users/new_user/{id?}',
+    [UsersController::class, 'new_user']
+);
+Route::get(
+    '/users/new_sign_in',
+    [UsersController::class, 'new_sign_in']
+);
+Route::get(
+    '/users/show_user/{id}/{view_mode_str?}',
+    [UsersController::class, 'show_user']
+);
+Route::get(
+    '/users/sign_out',
+    [UsersController::class, 'sign_out']
+);
+Route::get(
+    '/users/index',
+    [UsersController::class, 'index']
 );
 

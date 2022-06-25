@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use App\Models\PageView;
+use App\Http\Controllers\ObemMainController;
 
 class PageViewController extends Controller
 {
@@ -13,20 +13,29 @@ class PageViewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // 
+        // Prolog
+        load_locale($request);
+        seed_articles();
+        $obem_open_graph_proto_locale = 'fr_FR';
+        $obem_site_title = obem_site_title(__FUNCTION__);
+        
+        // Data
+        $pages_analytics = null;
+
         if(!user_has_admin_role())
         {
             // Redirect
-            return Redirect::to(action('ObemMainController@home'));
+            return redirect(action([ObemMainController::class, 'home']));
         }
         
-        $page_analytics = get_pages_analytics();
+        $pages_analytics = get_pages_analytics();
 
         return view('page_views.analytics')
-                ->with('page_analytics', $page_analytics)
-                ->with('site_title', 'OBEM | PageView@analytics');
+                ->with('site_title', $obem_site_title)
+                ->with('obem_open_graph_proto_locale', $obem_open_graph_proto_locale)
+                ->with('pages_analytics', $pages_analytics);
 
 
     } // index

@@ -24,6 +24,10 @@
             {
                 circle_shape_element('myBackToTopBtn');
             }
+            scale_obem_site_media();
+            window.onresize = (e) => {
+                scale_obem_site_media();
+            }
         </script>
     </body>
 </html>

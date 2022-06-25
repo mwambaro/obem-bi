@@ -9,57 +9,39 @@
         {{
             view('banner_view');
         }}
-        
-        <div id="example" style="margin: 10px; padding: 10px">
-        </div>
-        
-        @if(count($pages_analytics) > 0)
-            <div id="pages_analytics" style="margin: 10px; padding: 10px">
-            </div>
-        @endif
 
-        <div id="show-article" style="margin: 10px; padding: 10px">
-            <a href="<?php echo $show_article_url; ?>"> See OBEM Activities </a>
-        </div>
-
-        <div id="show-news" style="margin: 10px; padding: 10px">
-            <a href="<?php echo $news_url; ?>"> See OBEM News </a>
-        </div>
-
-        <div style="margin: 10px; padding: 10px">
-            <a href="<?php echo $community_url; ?>"> Community </a>
+        <div id="obem-navigation-bar">
         </div>
 
         {{ view('reactjs') }}
-        <script src="{{ asset('js/components/Example.js') }}"> </script>
-        <script src="{{ asset('js/components/ObemSiteAnalytics.js') }}"> </script>
+        <script src="{{ asset('js/components/ObemLocaleSettings.js') }}"> </script>
+        <script src="{{ asset('js/components/ObemNavigationBar.js') }}"> </script>
         <script type="text/javascript">
-            ReactDOM.render(
-                e(
-                    Example, 
-                    {
-                        card_title: "<?php echo 'Example Component'; ?>", 
-                        card_body: "<?php echo 'I am an example component!'; ?>",
-                        card_image: "{{ asset('images/obem_banner_image.JPG') }}"
-                    }
-                ), 
-                document.getElementById('example')
-            );
 
-            if(document.getElementById('pages_analytics'))
+            if(document.getElementById('obem-navigation-bar'))
             {
                 ReactDOM.render(
                     e(
-                        ObemSiteAnalytics, 
+                        ObemNavigationBar, 
                         {
-                            page_analytics: '<?php echo json_encode($pages_analytics); ?>', 
-                            number_of_visits_label: "{{ __('obem.number_of_visits') }}",
-                            number_of_visitors_label: "{{ __('obem.number_of_visitors') }}",
-                            page_visited_label: "{{ __('obem.page_visited') }}",
-                            website_analytics_label: "{{ __('obem.website_analytics_label') }}"
+                            obem_navigation_bar_actions: '<?php echo $obem_navigation_bar_actions; ?>', // stringified array of {url: '', inner_text: '', dropdown_boolean: '', data: ''} hashes
+                            supported_languages: '<?php echo $supported_languages; ?>', // stringified array of {locale: '',  language: '', country: ''} hashes 
+                            locale_end_point: '<?php echo $locale_end_point; ?>',
+                            active_language_locale: '<?php echo $active_language_locale; ?>',
+                            sign_in_label: "{{ __('obem.sign_in_label') }}",
+                            sign_in_url: '<?php echo $sign_in_url; ?>',
+                            sign_up_label: "{{ __('obem.sign_up_label') }}",
+                            sign_up_url: '<?php echo $sign_up_url; ?>',
+                            sign_out_label: "{{ __('obem.sign_out_label') }}",
+                            sign_out_url: '<?php echo $sign_out_url; ?>',
+                            obem_user_is_logged_in: '<?php echo $obem_user_is_logged_in; ?>',
+                            profile_photo_url: '<?php echo $profile_photo_url; ?>',
+                            show_profile_url: '<?php echo $show_profile_url; ?>',
+                            home_url: '<?php echo $home_url; ?>',
+                            csrf_token: "{{ csrf_token() }}"
                         }
                     ), 
-                    document.getElementById('pages_analytics')
+                    document.getElementById('obem-navigation-bar')
                 );
             }
         </script>

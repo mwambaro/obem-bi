@@ -4,31 +4,41 @@ return [
     'hello' => 'Salut le monde',
     'news_label' => 'Evénements',
     'next_label' => 'Suivant',
+    'previous_label' => 'Précédent',
     'new_label' => '+',
     'community_label' => 'Communauté',
     'activities_label' => 'Activités',
     'services_label' => 'Services',
-    'employment_label' => 'Emploi and Main d\'œuvre',
+    'employment_label' => 'Emploi and Main d’œuvre',
     'orientation_label' => 'Orientation',
     'obem_acronym' => 'OBEM',
     'create_media' => 'Créer des Média',
     'update_media' => 'Mettre à jour des Média',
+    'address_label' => 'Adresse complète',
+    'phone_number_label' => 'Numéro de téléphone',
+    'highest_degree_label' => 'Votre diplôme le plus élevé. Exemple: Bachelier en Communication et Traitement Numérique',
+    'highest_degree_short_label' => 'Diplôme le plus élevé',
+    'cv_label' => 'CV (pdf ou doc(x))',
+    'cv_short_label' => 'CV',
+    'cover_letter_label' => 'Lettre de motivation (pdf ou doc(x))',
+    'cover_letter_short_label' => 'Lettre de motivation',
+    'obem_employment_folder_form_title' => 'OBEM - Formulaire du Dossier d’Emploi',
     'fail_safe_title' => 'OBEM - Message de Maintenance',
     'something_went_wrong' => 'Oops! Quelque chose de terrible est survenue de notre côté',
-    'update_article_note' => 'Lorsque vous mettez à jour un article, vous devez aussi mettre à jour tous les médias de l\'article ou les laisser tous.',
-    'fail_safe_message' => 'Oops! Il se pourrait que l\'on ait eu un problème. Si vous êtes propriétaire du site, veuillez consulter les documents \'log\'!',
+    'update_article_note' => 'Lorsque vous mettez à jour un article, vous devez aussi mettre à jour tous les médias de l’article ou les laisser tous.',
+    'fail_safe_message' => 'Oops! Il se pourrait que l’on ait eu un problème. Si vous êtes propriétaire du site, veuillez consulter les documents ’log’!',
     'locale_set_success' => '
         Les paramètres de langue demandés ont été appliqués avec succès. Recharger les pages pour 
         que ces paramètres fassent effet.
     ',
-    'locale_set_failure' => 'Oh non! Quelque chose de ça ne va pas. Echec d\'application des paramètres de langue demandés.',
+    'locale_set_failure' => 'Oh non! Quelque chose de ça ne va pas. Echec d’application des paramètres de langue demandés.',
     'locale_set_no_locale_settings' => '
         Au fait, apparemment tu ne nous as envoyé aucune information de paramètres de langue. 
         A moins que ce soit une défaillance de la part de nos serveurs.
     ',
     'obem_site_media_upload_form_title' => 'OBEM - Stoquer Des Fichiers Média Pour Un Article',
     'obem_site_article_new_form_title' => 'OBEM - Créer de Nouveaux Articles',
-    'usa' => 'Etats-Unis d\'Amérique',
+    'usa' => 'Etats-Unis d’Amérique',
     'burundi' => 'Burundi',
     'rwanda' => 'Rwanda',
     'tanzania' => 'Tanzanie',
@@ -41,13 +51,13 @@ return [
     'swahili' => 'Swahili',
     'french' => 'Français',
     'sign_out_label' => 'Sortir',
-    'sign_up_label' => 'S\'inscrire',
+    'sign_up_label' => 'S’inscrire',
     'sign_in_label' => 'Entrer',
     'contact_us_label' => 'Contactez-nous',
     'about_label' => 'A propos de nous',
     'cookies_label' => 'Cookies',
     'privacy_label' => 'Privée',
-    'terms_of_use_label' => 'Termes d\'utilisation',
+    'terms_of_use_label' => 'Termes d’utilisation',
     'copy_right_label' => 'OBEM. Tous Droits Réservés',
     'email_label' => 'E-mail',
     'first_name_label' => 'Prénom',
@@ -60,24 +70,25 @@ return [
     'capture_label' => 'Titre Captif',
     'edit_label' => 'Editer',
     'show_label' => 'Montrer',
-    'destroy_label' => 'Détruire',
+    'destroy_label' => 'Enlever',
     'new_user' => 'Nouvel Utilisateur',
     'users_label' => 'Utilisateurs',
     'phone_label' => 'Téléphone',
     'logout_label' => 'Sortir',
     'home_label' => 'Accueil',
-    'profile_label' => 'Profil',
+    'profile_photo_label' => 'Photo de profil',
+    'view_mode_label' => 'Mode Visuel',
     'number_of_visits' => 'Nombre de visites',
     'number_of_visitors' => 'Nombre de visiteurs',
     'page_visited' => 'Page visitée',
     'obem_account_confirm_remove' => 'Veuillez confirmer la destruction de votre compte OBEM!',
     'obem_account_removed' => 'Votre compte OBEM a été détruit avec succès',
-    'website_analytics_label' => 'Statistiques Du Site Web d\'OBEM',
+    'website_analytics_label' => 'Statistiques Du Site Web d’OBEM',
     'website_statistics' => 'Statistiques du site',
     'profile_photo_absent' => 'Pas de fichier photo attachée trouvée',
     'profile_photo_create_success' => 'La photo profil a été créée avec succès',
-    'profile_photo_update_failure' => 'On n\'a pas pu mettre à jour la photo de profil',
-    'profile_photo_user_absent' => 'L\'utilisateur de la photo profil n\'a pas été trouvée dans notre base de données',
+    'profile_photo_update_failure' => 'On n’a pas pu mettre à jour la photo de profil',
+    'profile_photo_user_absent' => 'L’utilisateur de la photo profil n’a pas été trouvée dans notre base de données',
     'description_placeholder_text' => 'Description détaillée (Les paragraphes sont séparés par une seule ligne. Va à la ligne pour commencer un nouveau paragraphe)',
     'institution_objective' => 'Promouvoir et créer des emplois décents pour tous.',
     'institution_objective_quote' => 'La lutte contre le chômage et la pauvreté est un défi pour nous tous. La réponse à cette problématique, retrouvons-la à l’OBEM !',
@@ -86,20 +97,20 @@ return [
     'institution_address' => 'Lieu  : Avenue du Peuple Murundi, en face du Rond-Point des Nations Unies, Bujumbura-Mairie, Burundi',
     'institution_data_collection_experience' => 'Collectionner des données à propos des candidats',
     'institution_candidate_information_persistence' => 'Maintenir une base de données des candidats',
-    'institution_partnerships_experience' => 'Former des partenariats avec d\'autres organisations',
-    'institution_job_creation_experience' => 'Création d\'emplois pour les candidats',
+    'institution_partnerships_experience' => 'Former des partenariats avec d’autres organisations',
+    'institution_job_creation_experience' => 'Création d’emplois pour les candidats',
     'media_successful_creation' => 'Média  créés avec succès. Vous pouvez les utiliser là où ça vous convient, à moins que ce ne soit permis.',
-    'media_failed_creation' => 'On n\'a pas pu créer les média demandés. Si vous êtes administrateur du site, veuillez vérifier les \'logs\' pour plus de détails.',
-    'media_with_given_guid_not_found' => 'On n\'a pa pu trouver de média identifiés par le \'GUID\': ',
-    'no_pending_media_to_update' => 'Il n\'y a pas de média en suspens pour mettre à jour.',
-    'obem_user_sign_up_form_label' => 'Formulaire d\'Inscription pour OBEM',
-    'obem_user_sign_in_form_label' => 'Formulaire d\'Entrée dans le Site d\'OBEM',
+    'media_failed_creation' => 'On n’a pas pu créer les média demandés. Si vous êtes administrateur du site, veuillez vérifier les ’logs’ pour plus de détails.',
+    'media_with_given_guid_not_found' => 'On n’a pa pu trouver de média identifiés par le ’GUID’: ',
+    'no_pending_media_to_update' => 'Il n’y a pas de média en suspens pour mettre à jour.',
+    'obem_user_sign_up_form_label' => 'Formulaire d’Inscription pour OBEM',
+    'obem_user_sign_in_form_label' => 'Formulaire d’Entrée dans le Site d’OBEM',
     'are_you_obem_employee_label' => 'Etes-vous employé à OBEM?',
     'no_label' => 'Non',
     'yes_label' => 'Oui',
     'logged_in_true' => 'Est-on entré? Oui',
     'logged_in_false' => 'Est-on entré? Non',
-    'obem_site_media_edit_form_title' => 'Formulaire d\'Edition de Média pour OBEM',
+    'obem_site_media_edit_form_title' => 'Formulaire d’Edition de Média pour OBEM',
     'model_create_success' => 'Utilisateur créé avec succès.',
     'model_create_mismatch' => 'Mots de passe différents',
     'model_update_success' => 'Utilisateur mis a jour avec succès.',
@@ -137,50 +148,50 @@ return [
     'date_label' => 'Format de la date: 2017-11-30 09:30:00 +0200',
     'event_media_category' => 'Média Pour Evénements',
     'article_media_category' => 'Média Pour Articles',
-    'inside_article_category' => 'Média à l\'Intérieur d\'un Article',
-    'inside_event_category' => 'Média à l\'Intérieur d\'un Evénement',
+    'inside_article_category' => 'Média à l’Intérieur d’un Article',
+    'inside_event_category' => 'Média à l’Intérieur d’un Evénement',
     'community_media_capture' => 'Alboum pour la Communauté OBEM',
-    'no_previous_article_media_created' => 'Vous n\'avez pas encore créé de média dans catégorie Article',
-    'no_previous_event_media_created' => 'Vous n\'avez pas encore créé de média dans catégorie Evénement',
+    'no_previous_article_media_created' => 'Vous n’avez pas encore créé de média dans catégorie Article',
+    'no_previous_event_media_created' => 'Vous n’avez pas encore créé de média dans catégorie Evénement',
     'gihanga_porte_ouverte_report' => 'Journée Porte Ouverte Commune Gihanga',
     'kiganda_porte_ouverte_report' => 'Journée Porte Ouverte Commune Kiganda',
     'muramvya_porte_ouverte_report' => 'Journée Porte Ouverte Commune Muramvya',
     'obem_site_description' => 'La lutte contre le chômage et la pauvreté est un défi pour nous tous. La réponse à cette problématique, retrouvons-la à l’OBEM',
     'obem_open_graph_proto_title' => 'OBEM Promeut et Crée des Emplois',
-    'obem_open_graph_proto_description' => 'Mission d\'OBEM: Promouvoir et créer des emplois décents pour tous',
+    'obem_open_graph_proto_description' => 'Mission d’OBEM: Promouvoir et créer des emplois décents pour tous',
     'cookies_policy_body_text' => '
-        <p><h3> Politique d\'Utilisation de Cookies </h3></p>
+        <p><h3> Politique d’Utilisation de Cookies </h3></p>
         <p>
           Pour une bonne expérience, nous utilisons des cookies partout sur notre site Web pour sauvegarder des
-          détails qui sont importants pour une convenable expérience d\'utilisation de nos interfaces d\'utilisation.
-          En cliquant OK en bas, vous acceptez notre politique d\'utilisation de Cookies tel que décrite ici.
+          détails qui sont importants pour une convenable expérience d’utilisation de nos interfaces d’utilisation.
+          En cliquant OK en bas, vous acceptez notre politique d’utilisation de Cookies tel que décrite ici.
         </p>
     ',
     'privacy_policy_body_text' => '
         <p><h3> Politique de Vie Privée </h3></p>
         <p>
           Nous ne collectionnons pas de données privées excepté si demandées explicitement à travers nos formulaires.
-          Les données privées telles que détails de transfert d\'argent ne sont pas révélées à aucune tiers-partie.
+          Les données privées telles que détails de transfert d’argent ne sont pas révélées à aucune tiers-partie.
           En fait, nous les manions en utilisant des interfaces de programmation sûres. Notre site Web ne pratique
           aucune collecte de données dérrière les coulisses pour question de maintenance ou autre usage pareil.
         </p>
     ',
     'terms_of_use_body_text' => '
-        <p><h3> Termes d\'Utilisation </h3></p>
+        <p><h3> Termes d’Utilisation </h3></p>
         <p>
-          Lorsque vous utilisez notre Site Web, vous acceptez les termes d\'utilisation suivantes:
+          Lorsque vous utilisez notre Site Web, vous acceptez les termes d’utilisation suivantes:
               <ul>
                   <li>
                       Nous pouvons receuillir des données de vous quand nous vous demandons de remplir nos
-                      formulaires tels que ceux d\'inscription, de transfert d\'argent, et d\'autres formulaires
+                      formulaires tels que ceux d’inscription, de transfert d’argent, et d’autres formulaires
                       nécessaires pour le bon fonctionnement de notre site.
                   </li>
                   <li>
-                      Notre site utilise des cookies pour améliorer l\'expérience d\'utilisateur. Vous devez avoir accepté
-                      la politique d\'utilisation de Cookies et la politique de vie privée, au pied de la page d\'acceuil.
+                      Notre site utilise des cookies pour améliorer l’expérience d’utilisateur. Vous devez avoir accepté
+                      la politique d’utilisation de Cookies et la politique de vie privée, au pied de la page d’acceuil.
                   </li>
                   <li>
-                      Quand vous vous inscrivez sur notre site, l\'information que vous nous donnez peut être utilisée
+                      Quand vous vous inscrivez sur notre site, l’information que vous nous donnez peut être utilisée
                       pour entrer dans notre site pour que vous puissiez avoir accès à toutes les fonctions de notre
                       Site Web.
                   </li>
@@ -291,7 +302,7 @@ return [
       <##>
       media_markup report_kiganda_0.jpg
       <##>
-      media_markup_t Photo illustrant les cérémonies d\'ouverture de la journée porte ouverte en Commune Kiganda
+      media_markup_t Photo illustrant les cérémonies d’ouverture de la journée porte ouverte en Commune Kiganda
       <##>
       media_markup report_kiganda_1.jpg
       <##>
@@ -307,7 +318,7 @@ return [
       <##>
       Le dernier témoignage a été fait par une fille de la commune MBUYE qui s’est investie dans la culture et la commercialisation des champignons. Elle a expliqué aux autres jeunes le processus de la culture des champignons. Le jeune entrepreneur n’a pas manqué de remercier le projet EJR pour son accompagnement.
       <##>
-      ## SEANCES D\'ENREGISTREMENT DES CHERCHEURS D’EMPLOI
+      ## SEANCES D’ENREGISTREMENT DES CHERCHEURS D’EMPLOI
       <##>
       ### Première journée du 11 Juin
       <##>
@@ -369,7 +380,7 @@ return [
       <##>
       media_markup report_muramvya_2.jpg
       <##>
-      ## SEANCES D\'ENREGISTREMENT DES CHERCHEURS D’EMPLOI
+      ## SEANCES D’ENREGISTREMENT DES CHERCHEURS D’EMPLOI
       <##>
       ### Première journée du 13 Juin
       <##>

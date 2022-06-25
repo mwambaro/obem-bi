@@ -83,6 +83,7 @@ class ObemSiteMediaController extends Controller
                         $stringified_supported_languages
                     )
                     ->with('stringified_article', $stringified_article)
+                    ->with('article_guid', $article_guid)
                     ->with(
                         'obem_article_create_endpoint', 
                         $obem_article_create_endpoint
@@ -546,10 +547,13 @@ class ObemSiteMediaController extends Controller
             }
             else // success
             {
-                $capture = $request->input('capture');
+                $capture = preg_replace('/\'/', '’', $request->input('capture'));
                 $locale = $request->input('locale');
-                $body = $request->input('body');
+                $body = preg_replace('/\'/', '’', $request->input('body'));
                 $date = $request->input('date');
+                $article_guid = $request->has('article_guid') ? 
+                                $request->input('article_guid') : 
+                                null;
                 $date_time = date($date);
                 $obem_site_article = $article;
 
@@ -583,7 +587,8 @@ class ObemSiteMediaController extends Controller
                         'locale' => $locale,
                         'guid' => $article_guid,
                         'body' => preg_replace('/\n/', "\\n", $body),
-                        'date' => $date_time
+                        'date' => $date_time,
+                        'guid' => $article_guid
                     ]);
                     $stored = $obem_site_article->save();
 
@@ -601,7 +606,8 @@ class ObemSiteMediaController extends Controller
                             'capture' => $lc_capture,
                             'locale' => $lc['locale'],
                             'body' => preg_replace('/\n/', "\\n", $body),
-                            'date' => $date_time
+                            'date' => $date_time, 
+                            'guid' => $article_guid
                         ]);
                         $stored = $obem_article->save();
                     }
@@ -617,7 +623,7 @@ class ObemSiteMediaController extends Controller
                     $message = 'OBEM article created successfully. You can' . 
                                ' proceed and create contained media at: <a href="' . 
                                $action_url . 
-                               '" style="decoration: underline">' . 
+                               '" style="text-decoration: underline">' . 
                                __('obem.create_media') . '</a>';
                     $data_to_send = [
                         'message' => $message,
@@ -686,7 +692,7 @@ class ObemSiteMediaController extends Controller
 
                 if(!ObemSiteArticle::find($article_id) && $do_not_ignore_check)
                 {
-                    Log::info('---> ARTICLE ID: ' . $article_id);
+                    //Log::info('---> ARTICLE ID: ' . $article_id);
                     $file = $request->file($file_key);
                     $file_name = $file->getClientOriginalName();
                     $message = 'Media [' . $file_name . '] does not seem to belong'.
@@ -728,7 +734,7 @@ class ObemSiteMediaController extends Controller
                         );
                         $message = 'Media successfully uploaded. You can visualize'. 
                                    ' it at: <a href="' . $action_url . 
-                                   '" style="decoration: underline"> See Medium </a>';
+                                   '" style="text-decoration: underline"> See Medium </a>';
                         session(['last_uploaded_medium_id' => $medium_id]);
 
                         // Give feedback
@@ -801,10 +807,10 @@ class ObemSiteMediaController extends Controller
                                ' must not have been uploaded. So your' . 
                                ' article is invalid, unless you' . 
                                ' update it here: <a href="' . $update_url .
-                               '" style="decoration: underline"> '. 
+                               '" style="text-decoration: underline"> '. 
                                'Validate Article </a> OR <a href="' . 
                                $action_url .
-                               '" style="decoration: underline">'. 
+                               '" style="text-decoration: underline">'. 
                                ' View Medium </a>';
                 }
                 else 
@@ -812,7 +818,7 @@ class ObemSiteMediaController extends Controller
                     $message = 'Success. The upload process is over. ' .
                                'View last upload media at: <a href="' . 
                                $action_url . 
-                               '" style="decoration: underline"> See Medium </a>';
+                               '" style="text-decoration: underline"> See Medium </a>';
                 }
                 $data_to_send = [
                     'message' => $message,

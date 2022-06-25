@@ -6,15 +6,64 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 use App\Models\PageView;
 use App\Models\ObemSiteArticle;
 use App\Models\ObemArticleMedium;
+use App\Models\EmploymentFolder;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\PageViewController;
+use App\Http\Controllers\ObemMainController;
 use App\Http\Controllers\ObemSiteMediaController;
+use App\Http\Controllers\EmploymentFoldersController;
 
 /** 
  * Some of the functions below use database access and we need to make sure migrations were
  * upped into the database by running: php artisan migrate.
 */
+
+function clean_employment_folder($id)
+{
+    try 
+    {
+        $folder = EmploymentFolder::find($id);
+        if($folder)
+        {
+            $cv_path = $folder->cv_unique_file_path;
+            $cover_letter_path = $folder->cover_letter_unique_file_path;
+            Storage::delete($cv_path);
+            Storage::delete($cover_letter_path);
+            DB::table('employment_folders')
+                ->where([
+                    ['cv_unique_file_path', '=', $cv_path],
+                    ['cover_letter_unique_file_path', '=', $cover_letter_path]
+                ])
+                ->delete();
+        }
+    }
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+} // clean_employment_folder
+
+function password_digest($password)
+{
+    $hash = $password;
+
+    try 
+    {}
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+    return $hash;
+
+} // password_digest
 
 function number_of_articles_per_page()
 {
@@ -36,6 +85,7 @@ function get_page_of_articles($page_number, $article_guid)
                         ->orderBy('date', 'asc')
                         ->get();
         $total_number_of_articles = $articles->count();
+        //Log::info('Number of articles: ' . $total_number_of_articles);
         $number_of_articles_per_page = number_of_articles_per_page();
         $total_number_of_pages = ceil($total_number_of_articles/$number_of_articles_per_page);
         $articles_page = array();
@@ -402,6 +452,103 @@ function interpolate_article($text, $article_capture=null, $locale=null)
 
 } // interpolate_article
 
+function get_obem_navigation_bar_actions()
+{
+    $ary = null;
+
+    try 
+    {
+        $guids = article_containers_guids();
+        $obem_services = [
+            [
+                'url' => action([ObemMainController::class, 'orientation']),
+                'inner_text' => __('obem.orientation_label')
+            ]
+        ];
+        $user = who_is_logged_in();
+        if($user)
+        {
+            if($user->employment_folder_id == null && $user->role == 'Client')
+            {
+                array_push(
+                    $obem_services,
+                    [
+                        'url' => action([EmploymentFoldersController::class, 'new_employment_folder']),
+                        'inner_text' => __('obem.employment_label')
+                    ]
+                );
+            }
+        }
+        
+        $ary = [
+            [
+                'url' => action(
+                    [ObemSiteMediaController::class, 'articles_index'], 
+                    ['page_number' => 1, 'article_guid' => $guids['events']]
+                ),
+                'inner_text' => __('obem.news_label'),
+                'dropdown_boolean' => 'false',
+                'data' => ''
+            ],
+            [
+                'url' => action([ObemMainController::class, 'community']),
+                'inner_text' => __('obem.community_label'),
+                'dropdown_boolean' => 'false',
+                'data' => ''
+            ],
+            [
+                'url' => action(
+                    [ObemSiteMediaController::class, 'articles_index'], 
+                    ['page_number' => 1, 'article_guid' => $guids['activities']]
+                ),
+                'inner_text' => __('obem.activities_label'),
+                'dropdown_boolean' => 'false',
+                'data' => ''
+            ],
+            [
+                'url' => '#',
+                'inner_text' => __('obem.services_label'),
+                'dropdown_boolean' => 'true',
+                'data' => $obem_services
+            ]
+        ];
+
+        if(user_has_admin_role())
+        {
+            array_push(
+                $ary,
+                [
+                    'url' => action(
+                        [UsersController::class, 'index']
+                    ),
+                    'inner_text' => __('obem.obem_users_label'),
+                    'dropdown_boolean' => 'false',
+                    'data' => ''
+                ]
+            );
+            array_push(
+                $ary,
+                [
+                    'url' => action(
+                        [PageViewController::class, 'index']
+                    ),
+                    'inner_text' => __('obem.website_statistics'),
+                    'dropdown_boolean' => 'false',
+                    'data' => ''
+                ]
+            );
+        }
+    }
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+    return $ary;
+
+} // get_obem_navigation_bar_actions
+
 function get_supported_languages()
 {
     $ary = null;
@@ -466,29 +613,43 @@ function load_locale($request)
 
 function set_locale($request)
 {
-    $did = false;
+    $data_to_send = false;
 
     try 
     {
         // get locale from request
         if(!$request->has('locale'))
         {
-            return $did;
+            $data_to_send = [
+                'message' => __('obem.locale_set_no_locale_settings'),
+                'code' => 0
+            ];
+            return $data_to_send;
         }
-        $locale = $request->query('locale');
+        $locale = json_decode($request->input('locale'));
         // set locale
-        session(['active_language' => $locale]);
-        App::setLocale($locale);
+        session(['active_language' => $locale->locale]);
+        App::setLocale($locale->locale);
 
-        $did = true;
+        $message = __('obem.locale_set_success') . ': ' .
+                   $locale->language . ' (' . 
+                   $locale->country . ')';
+        $data_to_send = [
+            'message' => $message,
+            'code' => 1
+        ];
     }
     catch(Exception $e)
     {
         $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
         Log::error($message);
+        $data_to_send = [
+            'message' => $message,
+            'code' => 0
+        ];
     }
 
-    return $did;
+    return $data_to_send;
 
 } // set_locale
 
@@ -497,7 +658,16 @@ function user_has_admin_role()
     $has = false;
 
     try 
-    {}
+    {
+        $user = who_is_logged_in();
+        if($user)
+        {
+            if($user->role == 'Admin')
+            {
+                $has = true;
+            }
+        }
+    }
     catch(Exception $e)
     {
         $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
@@ -513,7 +683,12 @@ function who_is_logged_in()
     $user = null;
 
     try 
-    {}
+    {
+        if(session('user_id'))
+        {
+            $user = User::find(session('user_id'));
+        }
+    }
     catch(Exception $e)
     {
         $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
@@ -523,6 +698,35 @@ function who_is_logged_in()
     return $user;
 
 } // who_is_logged_in
+
+function log_out()
+{
+    $has = false;
+
+    try 
+    {
+        if(session('user_id'))
+        {
+            $user = who_is_logged_in();
+            if($user)
+            {
+                DB::table('users')
+                    ->where('id', $user->id)
+                    ->update(['last_logout' => date('Y-m-d H:i:s')]);
+            }
+            session(['user_id' => 0]);
+        }
+        $has = true;
+    }
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+    return $has;
+
+} // log_out
 
 function harvest_analytics($request)
 {
@@ -543,6 +747,13 @@ function harvest_analytics($request)
         $request_url = $request->url();
         $string = preg_replace('/http(s)*:\/\//i', '', $request_url);
         $string = preg_replace('/(\/)*obem_main\/home/i', '', $string);
+
+        // handle articles_index
+        $guids = article_containers_guids();
+        $regex = '/articles_index\/\d+\/' . preg_quote($guids['events']) . '/i';
+        $string = preg_replace($regex, 'events', $string);
+        $regex = '/articles_index\/\d+\/' . preg_quote($guids['activities']) . '/i';
+        $string = preg_replace($regex, 'activities', $string);
 
         // Cut short parameterized urls
         $string = preg_replace('/\A(.+show_article).+/i', '$1', $string);
@@ -876,11 +1087,12 @@ function create_article_according_to_capture_to_body_map($map, $guid, $locale)
         {
             $values = array_values($activity);
             $keys = array_keys($activity);
+            $body = preg_replace('/\'/', '’', $values[0]);
             $article = ObemSiteArticle::create([
                 'guid' => $guid,
-                'capture' => $capture,
+                'capture' => preg_replace('/\'/', '’', $capture),
                 'locale' => $locale,
-                'body' => preg_replace('/\r/', "", preg_replace('/\n/', "<##>", $values[0])),
+                'body' => preg_replace('/\r/', "", preg_replace('/\n/', "<##>", $body)),
                 'date' => $keys[0]
             ]);
             if(!$article->save())
