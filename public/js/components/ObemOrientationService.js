@@ -15,20 +15,28 @@ class ObemOrientationService extends React.Component
         let container = $(document).isMobile() === true ? 
                         'container-fluid' : 
                         'container';
-        return(
+        let html = e(
+            'div',
+            {
+                className: container
+            },
             e(
                 'div',
-                {},
+                {
+                    className: 'row justify-content-center'
+                },
                 e(
                     'div', 
                     {
                         style: {margin: '10px'},
-                        className: container,
+                        className: 'col-md-8',
                         id: "obem-orientation-service-body"
                     }
                 )
             )
         );
+
+        return html;
 
     } // render
 

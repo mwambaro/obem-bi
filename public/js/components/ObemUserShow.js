@@ -131,6 +131,35 @@ class ObemUserShow extends React.Component
                             },
                             this.props.cover_letter_label
                         )
+                    ),
+                    e(
+                        'p',
+                        {},
+                        // Edit - Destroy
+                        this.props.view_mode === 'false' ?
+                        e(
+                            'div',
+                            {
+                                className: 'd-flex flex-row justify-content-center'
+                            },
+                            e(
+                                'a',
+                                {
+                                    href: this.props.edit_employment_folder_url,
+                                    style: {margin: '5px', padding: '5px', 'text-decoration': 'underline'}
+                                },
+                                this.props.edit_label
+                            ),
+                            e(
+                                'a',
+                                {
+                                    href: this.props.destroy_employment_folder_url,
+                                    style: {margin: '5px', padding: '5px', 'text-decoration': 'underline'}
+                                },
+                                this.props.destroy_label
+                            )
+                        ):
+                        e('div')
                     )
                 )
             ) :
@@ -169,7 +198,8 @@ class ObemUserShow extends React.Component
                 e( // Bio data div
                     'div',
                     {
-                        className: 'd-flex flex-column justify-content-start align-items-start'
+                        className: 'd-flex flex-column justify-content-start align-items-start',
+                        style: {margin: '5px', padding: '5px'}
                     },
                     e(
                         'h3',
@@ -434,8 +464,10 @@ ObemUserShow.propTypes = {
     view_mode_url: PropTypes.string,
     destroy_label: PropTypes.string,
     destroy_user_url: PropTypes.string,
+    destroy_employment_folder_url: PropTypes.string,
     edit_label: PropTypes.string,
     edit_user_url: PropTypes.string,
+    edit_employment_folder_url: PropTypes.string,
     email_label: PropTypes.string,
     user_email: PropTypes.string,
     user_role_label: PropTypes.string,

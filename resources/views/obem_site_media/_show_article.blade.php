@@ -1,7 +1,9 @@
 
     <div class="container-fluid" style="margin-top: 20px">
-        <div>
-            <?php echo $article_html_body; ?>  
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <?php echo $article_html_body; ?>  
+            </div>
         </div>
         <div class="" style="zIndex: 99">  
                 <button id="myBackToTopBtn" 

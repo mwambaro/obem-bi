@@ -73,6 +73,7 @@ return [
     'destroy_label' => 'Enlever',
     'new_user' => 'Nouvel Utilisateur',
     'users_label' => 'Utilisateurs',
+    'user_label' => 'Utilisateur',
     'phone_label' => 'Téléphone',
     'logout_label' => 'Sortir',
     'home_label' => 'Accueil',
@@ -81,8 +82,11 @@ return [
     'number_of_visits' => 'Nombre de visites',
     'number_of_visitors' => 'Nombre de visiteurs',
     'page_visited' => 'Page visitée',
+    'powered_by_text' => 'Propulsé par Laastras',
     'obem_account_confirm_remove' => 'Veuillez confirmer la destruction de votre compte OBEM!',
     'obem_account_removed' => 'Votre compte OBEM a été détruit avec succès',
+    'obem_employment_folder_confirm_remove' => 'Veuillez confirmer la destruction de votre dossier pour emploi!',
+    'obem_employment_folder_removed' => 'Votre dossier pour emploi a été détruit avec succès',
     'website_analytics_label' => 'Statistiques Du Site Web d’OBEM',
     'website_statistics' => 'Statistiques du site',
     'profile_photo_absent' => 'Pas de fichier photo attachée trouvée',
@@ -459,7 +463,7 @@ return [
           <p> <strong> Direction Générale de l’OBEM </strong> </p>
           <p> 
             <p> <strong> Tél: </strong> 71 701 182 / 77 763 690 </p>
-            <p> <strong> E-mail: </strong> <a href=\u0022mailto:enduwarugira@yahoo.fr\u0022>enduwarugira@yahoo.fr</a> </p>
+            <p> <strong> E-mail: </strong> <a href="mailto:enduwarugira@yahoo.fr">enduwarugira@yahoo.fr</a> </p>
             <p> <strong> Lieu: </strong> Avenue du Peuple Murundi, en face du Rond-Point des Nations Unies </p>
           </p>
         </li>
@@ -467,28 +471,28 @@ return [
           <p> <strong> Direction Administrative et financière </strong> </p>
           <p> 
             <p> <strong> Tél: </strong> 71 571 522 </p>
-            <p> <strong> E-mail: </strong> <a href=\u0022mailto:nsanzed2002@yahoo.fr\u0022>nsanzed2002@yahoo.fr</a> </p>
+            <p> <strong> E-mail: </strong> <a href="mailto:nsanzed2002@yahoo.fr">nsanzed2002@yahoo.fr</a> </p>
           </p>
         </li>
         <li> 
           <p> <strong> Direction de l’ONEF </strong> </p>
           <p> 
             <p> <strong> Tél: </strong> 71 339 476 / 75 645 815 </p>
-            <p> <strong> E-mail: </strong> <a href=\u0022mailto:ndayibonif@yahoo.fr\u0022>ndayibonif@yahoo.fr</a> </p>
+            <p> <strong> E-mail: </strong> <a href="mailto:ndayibonif@yahoo.fr">ndayibonif@yahoo.fr</a> </p>
           </p>
         </li>
         <li> 
           <p> <strong> Direction de l’Emploi et de la Main d’œuvre </strong> </p>
           <p> 
             <p> <strong> Tél: </strong> 79 982 741 / 77 982 741 </p>
-            <p> <strong> E-mail: </strong> <a href=\u0022mailto:karikurubupascal@yahoo.fr\u0022>karikurubupascal@yahoo.fr</a> </p>
+            <p> <strong> E-mail: </strong> <a href="mailto:karikurubupascal@yahoo.fr">karikurubupascal@yahoo.fr</a> </p>
           </p>
         </li>
         <li> 
           <p> <strong> Direction du Perfectionnement et Reconversion </strong> </p>
           <p> 
             <p> <strong> Tél: </strong> 79 927 891 </p>
-            <p> <strong> E-mail: </strong> <a href=\u0022mailto:minanidenise@yahoo.fr\u0022>minanidenise@yahoo.fr</a> </p>
+            <p> <strong> E-mail: </strong> <a href="mailto:minanidenise@yahoo.fr">minanidenise@yahoo.fr</a> </p>
           </p>
         </li>
       </ul>

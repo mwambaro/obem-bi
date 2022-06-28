@@ -113,7 +113,9 @@ class UsersController extends Controller
             $view_mode = $view_mode_str;
             $view_mode_url = null;
             $destroy_user_url = null;
+            $destroy_employment_folder_url = null;
             $edit_user_url = null;
+            $edit_employment_folder_url = null;
             $user_email = null;
             $user_role = null;
             $user_full_name = null;
@@ -149,7 +151,7 @@ class UsersController extends Controller
                     ['id' => $user->id, 'view_mode_str' => 'true']
                 );
                 $has_employment_folder = $user->employment_folder_id != null ? 'true' : 'false';
-                if($has_employment_folder)
+                if($has_employment_folder == 'true')
                 {
                     $folder = EmploymentFolder::find($user->employment_folder_id);
                     if($folder)
@@ -171,6 +173,20 @@ class UsersController extends Controller
                             ],
                             ['id' => $folder->id]
                         );
+                        $destroy_employment_folder_url = action(
+                            [
+                                EmploymentFoldersController::class,
+                                'delete_employment_folder'
+                            ],
+                            ['id' => $folder->id]
+                        );
+                        $edit_employment_folder_url = action(
+                            [
+                                EmploymentFoldersController::class,
+                                'new_employment_folder'
+                            ],
+                            ['id' => $folder->id]
+                        );
                     }
                 }
             }
@@ -186,7 +202,9 @@ class UsersController extends Controller
                 'view_mode' => $view_mode,
                 'view_mode_url' => $view_mode_url,
                 'destroy_user_url' => $destroy_user_url,
+                'destroy_employment_folder_url' => $destroy_employment_folder_url,
                 'edit_user_url' => $edit_user_url,
+                'edit_employment_folder_url' => $edit_employment_folder_url,
                 'user_email' => $user_email,
                 'user_role' => $user_role,
                 'user_full_name' => $user_full_name,
@@ -482,28 +500,109 @@ class UsersController extends Controller
 
     function delete_user(Request $request, $id)
     {
+        $fail_safe = __('obem.fail_safe_message');
+
         try 
         {
             // Prolog
             load_locale($request);
-            
+            seed_articles();
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $message = null;
+            $require_confirmation = false;
+            $obem_user = null;
+
+            $obem_user = who_is_logged_in();
+            if($obem_user != null)
+            {
+                if($obem_user->id == $id)
+                {
+                    if(!$request->has('confirm')) // require confirmation
+                    {
+                        $require_confirmation = true;
+                        $message = __('obem.obem_account_confirm_remove');
+                    }
+                    else
+                    {
+                        $msg = $request->query('confirm');
+                        if(preg_match('/\Ayes\Z/i', $msg)) // proceed
+                        {
+                            $require_confirmation = false;
+                            log_out();
+                            $this->remove_user($id);
+                            $message = __('obem.obem_account_removed');
+                        }
+                        else 
+                        {
+                            if(!$request->query('redirect_uri'))
+                            {
+                                return redirect([ObemMainController::class, 'home']);
+                            }
+                            else
+                            {
+                                return redirect($request->query('redirect_uri'));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return redirect([ObemMainController::class, 'home']);
+                }
+            }
+            else
+            {
+                return redirect([ObemMainController::class, 'home']);
+            }
+
+            return view('users.delete_user')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('message', $message)
+                    ->with('require_confirmation', $require_confirmation)
+                    ->with('obem_user', $obem_user);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // delete_user
+
+    function remove_user($id)
+    {
+        $val = false;
+
+        try 
+        {
             $user = User::find($id);
             if($user)
             {
                 $profile_photo_id = $user->profile_photo_id;
                 $folder_id = $user->employment_folder_id;
 
-                $val = DB::table('users')->where('id', $id)->delete();
-                if($val)
-                {}
-
-                if($profile_photo_id)
+                $vall = DB::table('users')->where('id', $id)->delete();
+                if($vall)
                 {
-                    $this->clean_profile_photo($profile_photo_id);
-                }
-                if($folder_id)
-                {
-                    clean_employment_folder($folder_id);
+                    $val = true;
+                    if($profile_photo_id)
+                    {
+                        $this->clean_profile_photo($profile_photo_id);
+                    }
+                    if($folder_id)
+                    {
+                        clean_employment_folder($folder_id);
+                    }
                 }
             }
         }
@@ -513,7 +612,9 @@ class UsersController extends Controller
             Log::error($message);
         }
 
-    } // delete_user
+        return $val;
+
+    } // remove_user
 
     function clean_profile_photo($id)
     {
@@ -543,6 +644,9 @@ class UsersController extends Controller
 
         try 
         {
+            // Prolog
+            load_locale($request);
+
             $file_key = 'profile_photo_uploaded_file';
             if(!$request->hasFile($file_key))
             {

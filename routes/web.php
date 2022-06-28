@@ -52,20 +52,12 @@ Route::post(
     [EmploymentFoldersController::class, 'update_employment_folder']
 );
 Route::post(
-    '/employment_folders/delete_employment_folder/{id}',
-    [EmploymentFoldersController::class, 'delete_employment_folder']
-);
-Route::post(
     '/employment_folders/create_employment_folder',
     [EmploymentFoldersController::class, 'create_employment_folder']
 );
 Route::post(
     '/users/update_user/{id}',
     [UsersController::class, 'update_user']
-);
-Route::post(
-    '/users/delete_user/{id}',
-    [UsersController::class, 'delete_user']
 );
 Route::post(
     '/users/create_user',
@@ -120,6 +112,26 @@ Route::get(
     [ObemMainController::class, 'community']
 );
 Route::get(
+    '/obem_main/about',
+    [ObemMainController::class, 'about']
+);
+Route::get(
+    '/obem_main/terms_of_use',
+    [ObemMainController::class, 'terms_of_use']
+);
+Route::get(
+    '/obem_main/privacy',
+    [ObemMainController::class, 'privacy']
+);
+Route::get(
+    '/obem_main/cookies',
+    [ObemMainController::class, 'cookies']
+);
+Route::get(
+    '/obem_main/contacts',
+    [ObemMainController::class, 'contacts']
+);
+Route::get(
     '/employment_folders/new_employment_folder/{id?}/{new_user_id?}',
     [EmploymentFoldersController::class, 'new_employment_folder']
 );
@@ -130,6 +142,10 @@ Route::get(
 Route::get(
     '/employment_folders/serve_cover_letter/{id}',
     [EmploymentFoldersController::class, 'serve_cover_letter']
+);
+Route::get(
+    '/employment_folders/delete_employment_folder/{id}',
+    [EmploymentFoldersController::class, 'delete_employment_folder']
 );
 Route::get(
     '/users/new_user/{id?}',
@@ -150,5 +166,9 @@ Route::get(
 Route::get(
     '/users/index',
     [UsersController::class, 'index']
+);
+Route::get(
+    '/users/delete_user/{id}',
+    [UsersController::class, 'delete_user']
 );
 

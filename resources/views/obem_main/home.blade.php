@@ -13,9 +13,19 @@
         <div id="obem-navigation-bar">
         </div>
 
+        {{
+            view('obem_main._home_main')
+                ->with('home_main_data', $home_main_data);
+        }}
+
+        <div id="obem-site-footer">
+        </div>
+
         {{ view('reactjs') }}
         <script src="{{ asset('js/components/ObemLocaleSettings.js') }}"> </script>
         <script src="{{ asset('js/components/ObemNavigationBar.js') }}"> </script>
+        <script src="{{ asset('js/components/ObemSiteFooterLinks.js') }}"> </script>
+        <script src="{{ asset('js/components/ObemSiteFooter.js') }}"> </script>
         <script type="text/javascript">
 
             if(document.getElementById('obem-navigation-bar'))
@@ -44,6 +54,46 @@
                     document.getElementById('obem-navigation-bar')
                 );
             }
+
+            if(document.getElementById('obem-site-footer'))
+            {
+                ReactDOM.render(
+                    e(
+                        ObemSiteFooter, 
+                        {
+                            footer_actions: '<?php echo $footer_actions; ?>',
+                            copy_right_text: '<?php echo $copy_right_text; ?>',
+                            powered_by_text: '<?php echo $powered_by_text; ?>',
+                            powered_by_email: '<?php echo $powered_by_email; ?>'
+                        }
+                    ), 
+                    document.getElementById('obem-site-footer')
+                );
+            }
+
+            function arrangeContentAccordingToDevice()
+            {
+                if(jQuery(window).width() < 500 || jQuery(window).isMobile())
+                {
+                    $('#obem_home_page_main_intro_section').removeClass('flex-row');
+                    $('#obem_home_page_main_intro_section').addClass('flex-column');
+                    $('.secondary-content').removeClass('flex-row');
+                    $('.secondary-content').addClass('flex-column');
+                }
+                else 
+                {
+                    $('#obem_home_page_main_intro_section').removeClass('flex-column');
+                    $('#obem_home_page_main_intro_section').removeClass('flex-row');
+                    $('#obem_home_page_main_intro_section').addClass('flex-row');
+                    $('.secondary-content').removeClass('flex-column');
+                    $('.secondary-content').removeClass('flex-row');
+                    $('.secondary-content').addClass('flex-row');
+                }
+            }
+            arrangeContentAccordingToDevice();
+            window.addEventListener('resize', (e) => {
+                arrangeContentAccordingToDevice();
+            });
         </script>
     </body>
 </html>

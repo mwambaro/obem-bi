@@ -218,6 +218,10 @@ class ObemSiteMediaController extends Controller
         
         try 
         {
+             // Prolog
+             load_locale($request);
+             seed_articles();
+
             $data_to_send = null;
             if(!$request->has('page_number'))
             {
@@ -301,6 +305,9 @@ class ObemSiteMediaController extends Controller
     {
         try 
         {
+             // Prolog
+             load_locale($request);
+
             $medium = ObemArticleMedium::find($id);
             if(!$medium)
             {

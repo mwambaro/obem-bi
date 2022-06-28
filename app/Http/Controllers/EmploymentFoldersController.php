@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\EmploymentFolder;
+use App\Http\Controllers\ObemMainController;
 
 class EmploymentFoldersController extends Controller
 {
@@ -16,6 +17,9 @@ class EmploymentFoldersController extends Controller
     {
         try 
         {
+            // Prolog
+            load_locale($request);
+            
             $folder = EmploymentFolder::find($id);
             if(!$folder)
             {
@@ -38,6 +42,9 @@ class EmploymentFoldersController extends Controller
     {
         try 
         {
+            // Prolog
+            load_locale($request);
+            
             $folder = EmploymentFolder::find($id);
             if(!$folder)
             {
@@ -201,34 +208,88 @@ class EmploymentFoldersController extends Controller
 
     function delete_employment_folder(Request $request, $id)
     {
+        $fail_safe = __('obem.fail_safe_message');
+
         try 
         {
             // Prolog
             load_locale($request);
-            
-            $val = DB::table('employment_folders')->where('id', $id)->delete();
-            if($val)
-            {
-                // Update user
-                $user = who_is_logged_in();
-                if($user)
-                {
-                    $actual_user = DB::table('users')
-                                    ->where('employment_folder_id', $id)
-                                    ->get()->first();
-                    $actual_user->update([
-                        'employment_folder_id' => 0
-                    ]);
-                }
+            seed_articles();
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
 
-                // Clean employment folder
+            // Data
+            $message = null;
+            $require_confirmation = false;
+            $obem_user = null;
+
+            $obem_user = who_is_logged_in();
+            if($obem_user != null)
+            {
+                if($obem_user->employment_folder_id == $id)
+                {
+                    if(!$request->has('confirm')) // require confirmation
+                    {
+                        $require_confirmation = true;
+                        $message = __('obem.obem_employment_folder_confirm_remove');
+                    }
+                    else
+                    {
+                        $msg = $request->query('confirm');
+                        if(preg_match('/\Ayes\Z/i', $msg)) // proceed
+                        {
+                            $require_confirmation = false;
+                            // Update user
+                            DB::table('users')
+                                    ->where('id', $obem_user->id)
+                                    ->update([
+                                        'employment_folder_id' => 0
+                                    ]);
+                            // Remove folder
+                            clean_employment_folder($id);
+                            $message = __('obem.obem_employment_folder_removed');
+                        }
+                        else 
+                        {
+                            if(!$request->query('redirect_uri'))
+                            {
+                                return redirect([ObemMainController::class, 'home']);
+                            }
+                            else
+                            {
+                                return redirect($request->query('redirect_uri'));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return redirect([ObemMainController::class, 'home']);
+                }
             }
+            else
+            {
+                return redirect([ObemMainController::class, 'home']);
+            }
+
+            return view('employment_folders.delete_employment_folder')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('message', $message)
+                    ->with('require_confirmation', $require_confirmation)
+                    ->with('obem_user', $obem_user);
         }
         catch(Exception $e)
         {
             $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
             Log::error($message);
         }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
 
     } // delete_employment_folder
 

@@ -12,6 +12,10 @@ class ObemSiteAnalytics extends React.Component
 
     render()
     {
+        let container = $(document).isMobile() === true ? 
+                        'container-fluid' : 
+                        'container';
+
         let inner_array_html = [];
 
         //console.log(this.props.page_analytics);
@@ -44,7 +48,25 @@ class ObemSiteAnalytics extends React.Component
         );
 
         let html = e(
-            'div', {className: 'container-fluid', style: {margin: '10px'}}, [title_html, inner_array_html]
+            'div', 
+            {
+                className: container, 
+                style: {margin: '5px'}
+            }, 
+            e(
+                'div',
+                {
+                    className: 'row justify-content-center'
+                },
+                e(
+                    'div',
+                    {
+                        className: 'col-md-8'
+                    },
+                    title_html, 
+                    inner_array_html
+                )
+            )
         )
 
         //console.log('All elts created.');

@@ -16,4 +16,5 @@ deployment:
     - cp -R config/app.php $DEPLOYPATH/config
     - cp routes/web.php $DEPLOYPATH/routes
     - cp index.php $DEPLOYPATH
+    - cp php.ini $DEPLOYPATH
     - mv .env.prod $DEPLOYPATH/.env

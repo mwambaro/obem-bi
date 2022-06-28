@@ -17,6 +17,9 @@
 
         <title>{{ $site_title }}</title>
 
+        <!-- ICON --> 
+        <link rel="shortcut icon" type="image/x-icon" href="https://flagcdn.com/bi.svg" />
+
         <!-- App Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

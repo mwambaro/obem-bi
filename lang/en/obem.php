@@ -71,6 +71,7 @@ return [
     'destroy_label' => 'Remove',
     'new_user' => 'New User',
     'users_label' => 'Users',
+    'user_label' => 'User',
     'phone_label' => 'Phone',
     'logout_label' => 'Logout',
     'home_label' => 'Home',
@@ -79,8 +80,11 @@ return [
     'number_of_visits' => 'Number of visits',
     'number_of_visitors' => 'Number of visitors',
     'page_visited' => 'Page visited',
+    'powered_by_text' => 'Powered by Laastras',
     'obem_account_confirm_remove' => 'Please, confirm you intend to delete your OBEM account!',
     'obem_account_removed' => 'Your OBEM account successfully destroyed',
+    'obem_employment_folder_confirm_remove' => 'Please, confirm you intend to delete your OBEM employment folder!',
+    'obem_employment_folder_removed' => 'Your OBEM employment folder successfully destroyed',
     'website_analytics_label' => 'Statistics of OBEM Website',
     'website_statistics' => 'Website analytics',
     'profile_photo_absent' => 'No attached file found',
@@ -451,7 +455,7 @@ return [
         <p> <strong> Direction Générale de l’OBEM </strong> </p>
         <p> 
           <p> <strong> Tél: </strong> 71 701 182 / 77 763 690 </p>
-          <p> <strong> E-mail: </strong> <a href=\u0022mailto:enduwarugira@yahoo.fr\u0022>enduwarugira@yahoo.fr</a> </p>
+          <p> <strong> E-mail: </strong> <a href="mailto:enduwarugira@yahoo.fr">enduwarugira@yahoo.fr</a> </p>
           <p> <strong> Lieu: </strong> Avenue du Peuple Murundi, en face du Rond-Point des Nations Unies </p>
         </p>
       </li>
@@ -459,28 +463,28 @@ return [
         <p> <strong> Direction Administrative et financière </strong> </p>
         <p> 
           <p> <strong> Tél: </strong> 71 571 522 </p>
-          <p> <strong> E-mail: </strong> <a href=\u0022mailto:nsanzed2002@yahoo.fr\u0022>nsanzed2002@yahoo.fr</a> </p>
+          <p> <strong> E-mail: </strong> <a href="mailto:nsanzed2002@yahoo.fr">nsanzed2002@yahoo.fr</a> </p>
         </p>
       </li>
       <li> 
         <p> <strong> Direction de l’ONEF </strong> </p>
         <p> 
           <p> <strong> Tél: </strong> 71 339 476 / 75 645 815 </p>
-          <p> <strong> E-mail: </strong> <a href=\u0022mailto:ndayibonif@yahoo.fr\u0022>ndayibonif@yahoo.fr</a> </p>
+          <p> <strong> E-mail: </strong> <a href="mailto:ndayibonif@yahoo.fr">ndayibonif@yahoo.fr</a> </p>
         </p>
       </li>
       <li> 
         <p> <strong> Direction de l’Emploi et de la Main d’œuvre </strong> </p>
         <p> 
           <p> <strong> Tél: </strong> 79 982 741 / 77 982 741 </p>
-          <p> <strong> E-mail: </strong> <a href=\u0022mailto:karikurubupascal@yahoo.fr\u0022>karikurubupascal@yahoo.fr</a> </p>
+          <p> <strong> E-mail: </strong> <a href="mailto:karikurubupascal@yahoo.fr">karikurubupascal@yahoo.fr</a> </p>
         </p>
       </li>
       <li> 
         <p> <strong> Direction du Perfectionnement et Reconversion </strong> </p>
         <p> 
           <p> <strong> Tél: </strong> 79 927 891 </p>
-          <p> <strong> E-mail: </strong> <a href=\u0022mailto:minanidenise@yahoo.fr\u0022>minanidenise@yahoo.fr</a> </p>
+          <p> <strong> E-mail: </strong> <a href="mailto:minanidenise@yahoo.fr">minanidenise@yahoo.fr</a> </p>
         </p>
       </li>
     </ul>

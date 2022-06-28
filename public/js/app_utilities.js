@@ -551,7 +551,7 @@ function scale_obem_site_media()
     if(iilength > 0)
     {
         let portW = window.innerWidth;
-        if(portW > 700)
+        if(portW > 500)
         {
             let width = (portW*1)/2;
             for(let i = 0; i<iilength; i++)

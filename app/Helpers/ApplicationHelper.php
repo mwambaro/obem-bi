@@ -452,6 +452,45 @@ function interpolate_article($text, $article_capture=null, $locale=null)
 
 } // interpolate_article
 
+function get_footer_actions()
+{
+    $data = null;
+
+    try 
+    {
+        $data = [
+            [
+                'url' => action([ObemMainController::class, 'about']),
+                'inner_text' => __('obem.about_label')
+            ],
+            [
+                'url' => action([ObemMainController::class, 'terms_of_use']),
+                'inner_text' => __('obem.terms_of_use_label')
+            ],
+            [
+                'url' => action([ObemMainController::class, 'privacy']),
+                'inner_text' => __('obem.privacy_label')
+            ],
+            [
+                'url' => action([ObemMainController::class, 'cookies']),
+                'inner_text' => __('obem.cookies_label')
+            ],
+            [
+                'url' => action([ObemMainController::class, 'contacts']),
+                'inner_text' => __('obem.contact_us_label')
+            ]
+        ];
+    }
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+    return $data;
+
+} // get_footer_actions
+
 function get_obem_navigation_bar_actions()
 {
     $ary = null;
@@ -1090,7 +1129,7 @@ function create_article_according_to_capture_to_body_map($map, $guid, $locale)
             $body = preg_replace('/\'/', '’', $values[0]);
             $article = ObemSiteArticle::create([
                 'guid' => $guid,
-                'capture' => preg_replace('/\'/', '’', $capture),
+                'capture' => (preg_replace('/\'/', '’', $capture) . ' - ' . $locale),
                 'locale' => $locale,
                 'body' => preg_replace('/\r/', "", preg_replace('/\n/', "<##>", $body)),
                 'date' => $keys[0]
@@ -1105,7 +1144,7 @@ function create_article_according_to_capture_to_body_map($map, $guid, $locale)
             {
                 $path = public_path('images/' . $medium_file_name);
                 $unique_file_name = $medium_file_name;
-                $unique_file_path = 'public/' . $unique_file_name;
+                $unique_file_path = 'public/' . $locale . '_' . $unique_file_name;
 
                 //Log::info('Seed medium file path: ' . $path);
                         
@@ -1154,8 +1193,14 @@ function seed_articles()
             // activities
             $guid = article_containers_guids()['activities'];
             $any = DB::table('obem_site_articles')
-                        ->where('guid', '=', $guid)
+                        ->where([
+                            ['guid', '=', $guid],
+                            ['locale', '=', $locale]
+                        ])
                         ->count();
+
+            //Log::info('Seeding for locale [' . $locale . ']: any => ' . $any);
+
             if($any == 0)
             {
                 $activity_articles_capture_to_body_map = [
@@ -1202,7 +1247,10 @@ function seed_articles()
             // Events
             $guid = article_containers_guids()['events'];
             $any = DB::table('obem_site_articles')
-                        ->where('guid', '=', $guid)
+                        ->where([
+                            ['guid', '=', $guid],
+                            ['locale', '=', $locale]
+                        ])
                         ->count();
             if($any == 0)
             {

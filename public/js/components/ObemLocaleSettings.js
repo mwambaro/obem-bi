@@ -172,7 +172,7 @@ class ObemLocaleSettings extends React.Component
                                 {
                                     'aria-hidden': "true"
                                 },
-                                '&times;'
+                                '\u00D7'
                             )
                         )
                     ),

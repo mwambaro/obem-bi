@@ -37,7 +37,11 @@ class ObemMainController extends Controller
             $profile_photo_url = null;
             $show_profile_url = null;
             $home_url = action([ObemMainController::class, 'home']);
-            $pages_analytics = get_pages_analytics();
+            $home_main_data = $this->init_home_main_data();
+            $footer_actions = json_encode(get_footer_actions());
+            $copy_right_text = getdate()['year'] . ' ' . __('obem.copy_right_label') . '.';
+            $powered_by_text = __('obem.powered_by_text');
+            $powered_by_email = 'onkezabahizi@gmail.com';
 
             $user = who_is_logged_in();
             if($user)
@@ -69,7 +73,11 @@ class ObemMainController extends Controller
                     ->with('profile_photo_url', $profile_photo_url)
                     ->with('show_profile_url', $show_profile_url)
                     ->with('home_url', $home_url)
-                    ->with('pages_analytics', $pages_analytics);
+                    ->with('home_main_data', $home_main_data)
+                    ->with('footer_actions', $footer_actions)
+                    ->with('copy_right_text', $copy_right_text)
+                    ->with('powered_by_text', $powered_by_text)
+                    ->with('powered_by_email', $powered_by_email);
         }
         catch(Exception $e)
         {
@@ -81,6 +89,39 @@ class ObemMainController extends Controller
                 ->with('fail_safe_message', $fail_safe);
 
     } // home
+
+    function init_home_main_data()
+    {
+        $data = null;
+
+        try 
+        {
+            $data = [
+                'institution_objective' => __('obem.institution_objective'),
+                'institution_objective_quote' => __('obem.institution_objective_quote'),
+                'institution_objective_image' => asset('images/institution_objective_image.JPG'),
+                'institution_address' => __('obem.institution_address'),
+                'institution_objective_enterprises_quote' => __('obem.institution_objective_enterprises_quote'),
+                'institution_objective_unemployed_quote' => __('obem.institution_objective_unemployed_quote'),
+                'institution_data_collection_experience' => __('obem.institution_data_collection_experience'),
+                'institution_data_collection_image' => asset('images/employment_data_collection.JPG'),
+                'institution_candidate_information_persistence' => __('obem.institution_candidate_information_persistence'),
+                'institution_candidate_information_persistence_image' => asset('images/candidate_information_database.JPG'),
+                'institution_partnerships_experience' => __('obem.institution_partnerships_experience'),
+                'institution_partnerships_image' => asset('images/partnerships.JPG'),
+                'institution_job_creation_experience' => __('obem.institution_job_creation_experience'),
+                'institution_job_creation_image' => asset('images/job_creation.JPG')
+            ];
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return $data;
+
+    } // init_home_main_data
 
     function orientation(Request $request)
     {
@@ -130,6 +171,9 @@ class ObemMainController extends Controller
     {
         try 
         {
+             // Prolog
+             load_locale($request);
+
             $data_to_send = set_locale($request);
             // return data to client
             if(!$data_to_send)
@@ -244,4 +288,183 @@ class ObemMainController extends Controller
                 ->with('fail_safe_message', $fail_safe);
 
     } // community
+
+    function about(Request $request)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $about_us_data = interpolate_article(
+                __('obem.about_us_text')
+            );
+
+            return view('obem_main.about')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('about_us_data', $about_us_data);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // about
+
+    function terms_of_use(Request $request)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $terms_of_use_data = __('obem.terms_of_use_body_text');
+
+            return view('obem_main.terms_of_use')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('terms_of_use_data', $terms_of_use_data);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // terms_of_use
+
+    function cookies(Request $request)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $cookies_policy_data = __('obem.cookies_policy_body_text');
+
+            return view('obem_main.cookies')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('cookies_policy_data', $cookies_policy_data);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // cookies
+
+    function privacy(Request $request)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $privacy_policy_data = __('obem.privacy_policy_body_text');
+
+            return view('obem_main.privacy')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('privacy_policy_data', $privacy_policy_data);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // privacy
+
+    function contacts(Request $request)
+    {
+        $fail_safe = __('obem.fail_safe_message');
+
+        try
+        {
+            // Prolog
+            load_locale($request);
+            seed_articles();
+            harvest_analytics($request);
+            $obem_open_graph_proto_locale = 'fr_FR';
+            $obem_site_title = obem_site_title(__FUNCTION__);
+
+            // Data
+            $contact_us_data = interpolate_article(
+                __('obem.orientation_addresses')
+            );
+
+            return view('obem_main.contacts')
+                    ->with('site_title', $obem_site_title)
+                    ->with(
+                        'obem_open_graph_proto_locale', 
+                        $obem_open_graph_proto_locale
+                    )
+                    ->with('contact_us_data', $contact_us_data);
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+        }
+
+        return view('fail_safe')
+                ->with('fail_safe_message', $fail_safe);
+
+    } // contacts
 }
