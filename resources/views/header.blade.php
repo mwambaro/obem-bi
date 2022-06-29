@@ -40,20 +40,6 @@
         
         <!-- App JS -->
         <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/app_utilities.js') }}"></script>
-        <script>
-            try 
-            {
-                if(AOS && AOS != 'undefined')
-                {
-                    AOS.init();
-                }
-            }
-            catch(e)
-            {
-                console.log("AOS: " + e);
-            }
-        </script>
     </head>

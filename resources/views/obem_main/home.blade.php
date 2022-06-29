@@ -18,7 +18,7 @@
                 ->with('home_main_data', $home_main_data);
         }}
 
-        <div id="obem-site-footer">
+        <div id="obem-site-footer" data-aos="fade-up">
         </div>
 
         {{ view('reactjs') }}
@@ -95,5 +95,6 @@
                 arrangeContentAccordingToDevice();
             });
         </script>
+        {{ view('animation_on_scroll') }}
     </body>
 </html>

@@ -29,5 +29,6 @@
                 scale_obem_site_media();
             }
         </script>
+        {{ view('animation_on_scroll') }}
     </body>
 </html>

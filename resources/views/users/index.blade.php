@@ -15,5 +15,6 @@
         <div>
             <?php echo $view_data; ?>
         </div>
+        {{ view('animation_on_scroll') }}
     </body>
 </html>

@@ -33,7 +33,8 @@ class ObemSiteAnalytics extends React.Component
                     {
                         className: 'shadow-sm p-1 mb-2 bg-white rounded', 
                         style: {margin: '5px'}, 
-                        key: `obem-site-analytics-${idx}`
+                        key: `obem-site-analytics-${idx}`,
+                        'data-aos': 'fade-up'
                     }, 
                     elt
                 )
