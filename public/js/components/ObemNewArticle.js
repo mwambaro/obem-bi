@@ -210,8 +210,9 @@ class ObemNewArticle extends React.Component
                 if(article)
                 {
                     document.obem_site_article_new_form.capture.value = article.capture;
-                    document.obem_site_article_new_form.body.value = article.body;
+                    document.obem_site_article_new_form.body.value = article.body.replaceAll('<##>', "\n");
                     document.obem_site_article_new_form.date.value = article.date;
+                    document.getElementById('obem-site-article-new-select-lang').value = article.locale;
                 }
             }
         }

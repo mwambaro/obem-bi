@@ -131,7 +131,8 @@ class ObemArticleMediaUpload extends React.Component
         let outer_div = e(
             'div',
             {
-                className: container
+                className: container,
+                id: 'outermost-div-container'
             },
             form_div
         );
@@ -189,7 +190,7 @@ class ObemArticleMediaUpload extends React.Component
         `
         $('.verbose-message-div').remove();
         $('#obem_site_media_upload_main_div').prepend(all_html);
-        scroll_element_into_view('all-verbose-message');
+        scroll_element_into_view('outermost-div-container');
 
     } // give_feedback_to_user
 

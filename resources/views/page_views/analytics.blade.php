@@ -33,5 +33,6 @@
                 );
             }
         </script>
+        {{ view('animation_on_scroll') }}
     </body>
 </html>

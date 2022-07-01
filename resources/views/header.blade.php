@@ -21,6 +21,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="https://flagcdn.com/bi.svg" />
 
         <!-- App Styles -->
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Fonts -->
