@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="shadow p-3 mb-5 bg-body rounded" data-aos="fade-up"> 
+                <div class="shadow p-3 mb-5 bg-body rounded"> 
                     <div class="text-center" 
                          style="background-color: #303037; color: #ededed; padding: 10px; border-radius: 5px">
                         <h3> <?php echo $home_main_data['institution_objective']; ?>  </h3> 
