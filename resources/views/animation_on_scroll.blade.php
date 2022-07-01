@@ -7,6 +7,7 @@
                 {
                     AOS.init();
                     console.log('AOS inited.');
+                    jQuery(window).scrollTop(20);
                 }
             }
             catch(e)

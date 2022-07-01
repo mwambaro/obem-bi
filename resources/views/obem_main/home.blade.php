@@ -96,8 +96,5 @@
             });
         </script>
         {{ view('animation_on_scroll') }}
-        <script>
-            jQuery(window).scrollTop(20);
-        </script>
     </body>
 </html>
