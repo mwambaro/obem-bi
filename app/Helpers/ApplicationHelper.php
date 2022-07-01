@@ -394,14 +394,14 @@ function interpolate_article($text, $article_capture=null, $locale=null)
                 {
                     if(Str::startsWith($mime_type, 'image'))
                     {
-                        $txt .= '<div class="text-center" data-aos="fade-up">' . 
+                        $txt .= '<div class="text-center" style="margin: 10px">' . 
                                 '<img class="img-fluid obem-article-media" src="' .
                                 $url . 
-                                '" /></div>';
+                                '"" /></div>';
                     }
                     elseif(Str::startsWith($mime_type, 'audio'))
                     {
-                        $txt .= '<div class="text-center obem-article-media" data-aos="fade-up">' . 
+                        $txt .= '<div class="text-center obem-article-media" style="margin: 10px">' . 
                                '<audio class="embed-responsive" controls>' . 
                                '<source class="embed-responsive-item" src="' . $url .
                                '" type="' . $mime_type . 
@@ -409,7 +409,7 @@ function interpolate_article($text, $article_capture=null, $locale=null)
                     }
                     elseif(Str::startsWith($mime_type, 'video'))
                     {
-                        $txt .= '<div class="text-center obem-article-media" data-aos="fade-up">' . 
+                        $txt .= '<div class="text-center obem-article-media" style="margin:10px">' . 
                                 '<video class="embed-responsive embed-responsive-21by10" controls>' . 
                                 '<source class="embed-responsive-item" src="' . $url .
                                 '" type="' . $mime_type .
@@ -429,14 +429,14 @@ function interpolate_article($text, $article_capture=null, $locale=null)
             elseif(preg_match('/\A\s*media_markup_t\s+(.+)\Z/i', $paragraph, $matches))
             {
                 $capture = preg_replace('/(\A\s+)|(\s+\Z)/', '', $matches[1]);
-                $txt .= '<div class="text-center" data-aos="fade-up">' . 
+                $txt .= '<div class="text-center">' . 
                         '<p> <strong>' . $capture . 
                         '</strong> </p> </div>';
             }
             // Paragraph
             else
             {
-                $txt .= '<div data-aos="fade-up"> <p> ' . 
+                $txt .= '<div> <p> ' . 
                         $paragraph . 
                         '</p></div>';
             }
