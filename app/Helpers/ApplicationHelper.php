@@ -144,6 +144,8 @@ function get_page_of_articles($page_number, $article_guid)
             }
         }
 
+        //Log::info("Articles page: ".count($articles_page). "; Total number of articles: ". $total_number_of_articles."; Total number of pages: ".$total_number_of_pages);
+
         $page_info = [
             'articles_page' => $articles_page,
             'total_number_of_articles' => $total_number_of_articles,

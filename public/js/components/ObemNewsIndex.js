@@ -68,8 +68,7 @@ class ObemNewsIndex extends React.Component
                     'div',
                     {
                         className: 'shadow-sm p-1 mb-2 bg-white rounded',
-                        key: `obem-news-index-key-${idx}`,
-                        'data-aos': 'fade-up'
+                        key: `obem-news-index-key-${idx}`
                     },
                     e(
                         'div',
