@@ -31,7 +31,7 @@ any other package management tool, mind you.
 
 # Access token to repo
 
-token: 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
+token: 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
 validity: 30 days
 [instructions](https://stackoverflow.com/questions/42148841/github-clone-with-oauth-access-token)
-example: `git clone https://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@github.com/mwambaro/obem-bi.git`
+example: `git clone https://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@github.com/mwambaro/obem-bi.git`

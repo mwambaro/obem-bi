@@ -54,7 +54,9 @@ function password_digest($password)
     $hash = $password;
 
     try 
-    {}
+    {
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+    }
     catch(Exception $e)
     {
         $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
@@ -520,6 +522,16 @@ function get_obem_navigation_bar_actions()
                 );
             }
         }
+        else // Sign in
+        {
+            array_push(
+                $obem_services,
+                [
+                    'url' => action([UsersController::class, 'new_sign_in']),
+                    'inner_text' => __('obem.employment_label')
+                ]
+            );
+        }
         
         $ary = [
             [
@@ -556,26 +568,23 @@ function get_obem_navigation_bar_actions()
 
         if(user_has_admin_role())
         {
-            array_push(
-                $ary,
+            $admin_services = [
                 [
-                    'url' => action(
-                        [UsersController::class, 'index']
-                    ),
-                    'inner_text' => __('obem.obem_users_label'),
-                    'dropdown_boolean' => 'false',
-                    'data' => ''
+                    'url' => action([UsersController::class, 'index']),
+                    'inner_text' => __('obem.obem_users_label')
+                ],
+                [
+                    'url' => action([PageViewController::class, 'index']),
+                    'inner_text' => __('obem.website_statistics')
                 ]
-            );
+            ];
             array_push(
                 $ary,
                 [
-                    'url' => action(
-                        [PageViewController::class, 'index']
-                    ),
-                    'inner_text' => __('obem.website_statistics'),
-                    'dropdown_boolean' => 'false',
-                    'data' => ''
+                    'url' => '#',
+                    'inner_text' => __('obem.obem_admin_label'),
+                    'dropdown_boolean' => 'true',
+                    'data' => $admin_services
                 ]
             );
         }

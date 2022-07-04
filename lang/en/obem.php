@@ -118,25 +118,33 @@ return [
     'model_update_success' => 'User was successfully updated.',
     'model_destroy_success' => 'User was successfully destroyed.',
     'mpanda_and_musigati_events_01_capture' => 'Journée Porte Ouverte à Mpanda et Musigati－01',
-    'mpanda_and_musigati_events_01' => 'Le Ministère de la Fonction Publique, du Travail, et de l’Emploi, via son service public d’emploi (OBEM), a organisé des journées portes ouvertes à Mpanda et Musigati. Des gens de tout genre se sont rués vers la localité pour voir ce qui se passait et nous ont fourni assez d’information pour leur rendre service.
+    'mpanda_and_musigati_events_01' => '### Journée Porte Ouverte à Mpanda et Musigati－Jour 01
+      <##> 
+      Le Ministère de la Fonction Publique, du Travail, et de l’Emploi, via son service public d’emploi (OBEM), a organisé des journées portes ouvertes à Mpanda et Musigati. Des gens de tout genre se sont rués vers la localité pour voir ce qui se passait et nous ont fourni assez d’information pour leur rendre service.
       <##>
       media_markup events_01.JPG
       <##>
       Des chômeurs, étant allés à l’école ou pas, sont venus vers nous pour que nous puissions les aider à se procurer du travail rentable. Ils sont venus avec leurs dossiers et nous ont facilité la tâche de remplissage des formulaires pour candidats.',
     'mpanda_and_musigati_events_02_capture' => 'Journée Porte Ouverte à Mpanda et Musigati－02',
-    'mpanda_and_musigati_events_02' => 'Des gens étaient venus nombreux nous soutenir et ils remplissaient la salle d’acceuil. La salle était bien aérée, avec un plancher à escaliers pour que tout le monde puisse voir les exhibitions, et était assez large pour contenir une petite centaine d’individus.
+    'mpanda_and_musigati_events_02' => '### Journée Porte Ouverte à Mpanda et Musigati－Jour 02
+      <##>
+      Des gens étaient venus nombreux nous soutenir et ils remplissaient la salle d’acceuil. La salle était bien aérée, avec un plancher à escaliers pour que tout le monde puisse voir les exhibitions, et était assez large pour contenir une petite centaine d’individus.
       <##>
       media_markup events_02.JPG
       <##>
       Les célébrations se sont vues honorées par les tambourinaires culturels et des individus avec leurs dossiers de demande d’emploi à la main. Des mots ont été mentionnés à propos des objectifs visés par OBEM tels que ‘Procéder à la collecte, à la centralisation, à l’analyse et à la diffusion des données relatives au marché de l’emploi’ et ‘Réaliser toutes études sur l’emploi et la formation professionnelle jugées indispensable’.',
     'ruhororo_commune_events_03_capture' => 'Journée Porte Ouverte à Ruhororo－01',
-    'ruhororo_commune_events_03' => 'Le Ministère de la Fonction Publique, du Travail, et de l’Emploi, via son service public d’emploi (OBEM), en collaboration avec PRODEFI/EJR, organise une journée porte ouverte sur l’emploi des jeunes en commune Ruhororo, province Ngozi.
+    'ruhororo_commune_events_03' => '### Journée Porte Ouverte à Ruhororo－Jour 01
+      <##>
+      Le Ministère de la Fonction Publique, du Travail, et de l’Emploi, via son service public d’emploi (OBEM), en collaboration avec PRODEFI/EJR, organise une journée porte ouverte sur l’emploi des jeunes en commune Ruhororo, province Ngozi.
       <##>
       media_markup events_03.JPG
       <##>
       Cette journée nous a permis d’atteindre les objectif d’OBEM tels que ‘Canaliser toutes les offres et demandes d’emploi des secteurs public et privé et les mettre à la disposition du public’ et ‘Contribuer à l’élaboration des stratégies de mobilisation des partenaires et des ressources pour la promotion et la création d’emploi’.',
     'ruhororo_commune_events_04_capture' => 'Journée Porte Ouverte à Ruhororo－02',
-    'ruhororo_commune_events_04' => 'De nombreux gens de la localité et des passants sont venus nous soutenir dans notre célébration de cette journée porte ouverte. Les autorités locales ont coopéré avec nous durant toute la journée.
+    'ruhororo_commune_events_04' => '### Journée Porte Ouverte à Ruhororo－Jour 02
+      <##>
+      De nombreux gens de la localité et des passants sont venus nous soutenir dans notre célébration de cette journée porte ouverte. Les autorités locales ont coopéré avec nous durant toute la journée.
       <##>
       media_markup events_04.JPG
       <##>
@@ -146,6 +154,7 @@ return [
     'Client' => 'Client',
     'Employee' => 'Employee',
     'obem_users_label' => 'OBEM Users',
+    'obem_admin_label' => 'Admin dashboard',
     'back_to_top_label' => 'Top',
     'date_label' => 'Date format: 2017-11-30 09:30:00 +0200',
     'event_media_category' => 'Media for Events',

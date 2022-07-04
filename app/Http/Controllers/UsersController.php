@@ -378,8 +378,7 @@ class UsersController extends Controller
                             ->first();
                 if($user)
                 {
-                    $digest = password_digest($password);
-                    if($user->password == $digest)
+                    if(password_verify($password, $user->password))
                     {
                         session(['user_id' => $user->id]);
                         DB::table('users')

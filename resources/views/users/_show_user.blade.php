@@ -1,5 +1,5 @@
         
-        <div id="<?php echo $show_user_id; ?>" data-aos="fade-up">
+        <div id="<?php echo $show_user_id; ?>">
         </div>
 
         <script type="text/javascript">
