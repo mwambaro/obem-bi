@@ -28,8 +28,7 @@ return [
     'update_article_note' => 'Lorsque vous mettez à jour un article, vous devez aussi mettre à jour tous les médias de l’article ou les laisser tous.',
     'fail_safe_message' => 'Oops! Il se pourrait que l’on ait eu un problème. Si vous êtes propriétaire du site, veuillez consulter les documents ’log’!',
     'locale_set_success' => '
-        Les paramètres de langue demandés ont été appliqués avec succès. Recharger les pages pour 
-        que ces paramètres fassent effet.
+        Les paramètres de langue demandés ont été appliqués avec succès.
     ',
     'locale_set_failure' => 'Oh non! Quelque chose de ça ne va pas. Echec d’application des paramètres de langue demandés.',
     'locale_set_no_locale_settings' => '

@@ -28,7 +28,7 @@ return [
     'update_article_note' => 'When you update an article, you have to update all media in the article too, or not update any media at all.',
     'fail_safe_message' => 'Oops! Something must have gone wrong. If you are the site owner or maintainer, please, check the logs!',
     'locale_set_success' => '
-      The language settings were set successfully as requested. You need to reload your pages for these settings to take effect
+      The language settings were set successfully as requested.
     ',
     'locale_set_failure' => 'Yikes! Something went wrong. The language settings requested could not be set',
     'locale_set_no_locale_settings' => '

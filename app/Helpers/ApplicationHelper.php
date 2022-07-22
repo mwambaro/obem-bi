@@ -22,6 +22,42 @@ use App\Http\Controllers\EmploymentFoldersController;
  * upped into the database by running: php artisan migrate.
 */
 
+/**
+ * See https://stackoverflow.com/questions/14782751/convert-pdf-to-html-in-php
+ * OR https://pdf.wondershare.com/pdf-knowledge/pdf-to-html-php.html
+ */
+function pdf_to_html($pdf_full_path)
+{
+    $html_full_path = null;
+
+    try 
+    {
+        $file_name = Str::of($pdf_full_path)->basename();
+        $output_full_path = storage_path('app/' . $file_name . '.html');
+        if(!file_exists($output_full_path))
+        {
+            $a = passthru("pdftohtml $pdf_full_path $output_full_path", $b);
+            Log::debug('PDFTOHTML: ' . $b);
+        }
+        if(file_exists($output_full_path))
+        {
+            $html_full_path = $output_full_path;
+        }
+        else 
+        {
+            $html_full_path = $pdf_full_path;
+        }
+    }
+    catch(Exception $e)
+    {
+        $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+        Log::error($message);
+    }
+
+    return $html_full_path;
+
+} // pdf_to_html
+
 function clean_employment_folder($id)
 {
     try 

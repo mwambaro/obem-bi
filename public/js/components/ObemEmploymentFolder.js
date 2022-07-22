@@ -86,7 +86,8 @@ class ObemEmploymentFolder extends React.Component
                     type: "file", 
                     name: "cv_uploaded_file",
                     className: 'form-control', 
-                    id: "obem-employment-folder-cv"
+                    id: "obem-employment-folder-cv",
+                    accept: 'application/pdf'
                 }
             )
         );
@@ -109,7 +110,8 @@ class ObemEmploymentFolder extends React.Component
                     type: "file", 
                     name: "cover_letter_uploaded_file",
                     className: 'form-control', 
-                    id: "obem-employment-folder-cover-letter"
+                    id: "obem-employment-folder-cover-letter",
+                    accept: 'application/pdf'
                 }
             )
         );

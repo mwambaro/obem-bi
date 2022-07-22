@@ -306,7 +306,19 @@ class ObemUserShow extends React.Component
             {
                 className: container
             },
-            profile_div
+            e(
+                'div',
+                {
+                    className: 'row justify-content-center'
+                },
+                e(
+                    'div',
+                    {
+                        className: 'col-md-8'
+                    },    
+                    profile_div
+                )
+            )
         );
 
         return main_div;

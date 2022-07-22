@@ -27,8 +27,9 @@ class EmploymentFoldersController extends Controller
             }
             $path_to_file = storage_path('app/' . $folder->cv_unique_file_path);
             //Log::info('---> Path to file: ' . $path_to_file);
+            $html_file = pdf_to_html($path_to_file);
 
-            return response()->file($path_to_file);
+            return response()->file($html_file);
         }
         catch(Exception $e)
         {
@@ -52,8 +53,9 @@ class EmploymentFoldersController extends Controller
             }
             $path_to_file = storage_path('app/' . $folder->cover_letter_unique_file_path);
             //Log::info('---> Path to file: ' . $path_to_file);
+            $html_file = pdf_to_html($path_to_file);
 
-            return response()->file($path_to_file);
+            return response()->file($html_file);
         }
         catch(Exception $e)
         {
