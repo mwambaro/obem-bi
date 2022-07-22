@@ -176,6 +176,14 @@ class ObemSiteMediaController extends Controller
             $is_admin = user_has_admin_role();
             $new_article_url = null;
             $articles_page = null; // array of {capture:, url: } maps
+            $current_page_number = $page_number;
+            $page_url = action(
+                [ObemSiteMediaController::class, 'articles_index'], 
+                [
+                    'page_number' => 'page_number', 
+                    'article_guid' => $article_guid
+                ]
+            );
 
             $page_info = get_page_of_articles($page_number, $article_guid);
             $articles_page = json_encode($page_info['articles_page']);
@@ -198,6 +206,8 @@ class ObemSiteMediaController extends Controller
                     ->with('total_number_of_pages', $total_number_of_pages)
                     ->with('articles_page', $articles_page)
                     ->with('obem_articles_page_endpoint', $obem_articles_page_endpoint)
+                    ->with('page_url', $page_url)
+                    ->with('current_page_number', $current_page_number)
                     ->with('article_guid', $article_guid)
                     ->with('is_admin', $is_admin)
                     ->with('new_article_url', $new_article_url);

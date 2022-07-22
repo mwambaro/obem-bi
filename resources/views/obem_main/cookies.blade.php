@@ -51,32 +51,6 @@
             {
                 CookiesPolicySectionModal.show();
 
-                window.addEventListener('click', (event) => {
-                    let object = event.target;
-                    let id = 'cookies-policy-section';
-                    if(event)
-                    {
-                        if(object.id != id)
-                        {
-                            let parent = object.parentElement;
-                            let isChild = false;
-                            while(parent)
-                            {
-                                if(parent.id === id)
-                                {
-                                    isChild = true;
-                                    break;
-                                }
-                                parent = parent.parentElement;
-                            }
-                            if(isChild)
-                            { 
-                                onFocusOutHandler(event);
-                            }
-                        }
-                    }
-                });
-
             } // cookies_policy_componentDidMount
 
             function leaveCookiesPolicy(e)

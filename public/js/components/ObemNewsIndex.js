@@ -20,7 +20,8 @@ class ObemNewsIndex extends React.Component
                 let text_elt = e(
                     'div',
                     {
-                        className: 'd-flex flex-column justify-content-start align-items-start'
+                        id: `div:${page_item.url}`,
+                        className: 'd-flex flex-column justify-content-start align-items-start obem-index'
                     },
                     e(
                         'h4',
@@ -38,7 +39,10 @@ class ObemNewsIndex extends React.Component
                     ),
                     e(
                         'p',
-                        {},
+                        {
+                            id: `p:${page_item.url}`,
+                            className: 'obem-index'
+                        },
                         page_item.description
                     )
                 );
@@ -56,9 +60,10 @@ class ObemNewsIndex extends React.Component
                             e(
                                 'img',
                                 {
-                                    className: 'img-fluid',
+                                    className: 'img-fluid obem-index',
                                     src: page_item.first_image_url,
-                                    width: img_width
+                                    width: img_width,
+                                    id: `img:${page_item.url}`
                                 }
                             )
                         )
@@ -94,6 +99,8 @@ class ObemNewsIndex extends React.Component
                 next_label: this.props.next_label,
                 previous_label: this.props.previous_label,
                 obem_articles_page_endpoint: this.props.obem_articles_page_endpoint,
+                page_url: this.props.page_url,
+                current_page_number: this.props.current_page_number,
                 csrf_token: this.props.csrf_token
             }
         );
@@ -101,6 +108,22 @@ class ObemNewsIndex extends React.Component
         return main_div;
 
     } // render
+
+    componentDidMount()
+    {
+        $('.obem-index').hover((e) => {
+            e.target.style.cursor = 'pointer';
+        });
+        $('.obem-index').on('click', (e) => {
+            let id = e.target.id;
+            let regex = /:([^:].+)/;
+            let match = regex.exec(id);
+            if(match)
+            {
+                window.location = match[1];
+            }
+        });
+    }
 }
 
 ObemNewsIndex.propTypes = {
@@ -109,5 +132,7 @@ ObemNewsIndex.propTypes = {
     next_label: PropTypes.string,
     previous_label: PropTypes.string,
     obem_articles_page_endpoint: PropTypes.string,
+    page_url: PropTypes.string, // the url string with 'page_number' substring where to put the page number
+    current_page_number: PropTypes.string,
     csrf_token: PropTypes.string
 };

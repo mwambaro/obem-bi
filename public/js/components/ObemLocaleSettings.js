@@ -201,19 +201,18 @@ class ObemLocaleSettings extends React.Component
                 )
             )
         );
-        let locale_button_div = e(
-            'div',
-            {},
+        let locale_button_div = 
             e(
-                'button', 
+                'img',
                 {
-                    id: "set-locale-button", 
-                    type: "button", 
-                    className: "btn btn-default", 
+                    id: "set-locale-button",
+                    className: 'img-fluid',
+                    src: this.props.language_icon_url,
+                    width: '30px',
                     onClick: se => this.setLocaleLanguage(se)
                 }
-            )
-        );
+            );
+
         let main_div = e(
             'div',
             {
@@ -231,7 +230,10 @@ class ObemLocaleSettings extends React.Component
 
     componentDidMount()
     {
-        this.setLocaleButtonContents();
+        //this.setLocaleButtonContents();
+        $('#set-locale-button').hover((e) =>{
+            e.target.style.cursor = 'pointer';
+        });
         this.setObemLocaleSettingsLanguages();
         this.actionResponseSectionModal = new bootstrap.Modal(
             document.getElementById('action-response-section')
@@ -642,5 +644,6 @@ ObemLocaleSettings.propTypes = {
     supported_languages: PropTypes.string, // stringified array of {locale: '',  language: '', country: ''} hashes
     locale_end_point: PropTypes.string,
     active_language_locale: PropTypes.string,
+    language_icon_url: PropTypes.string,
     csrf_token: PropTypes.string
 };

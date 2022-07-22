@@ -9,7 +9,7 @@ return [
     'community_label' => 'Communauté',
     'activities_label' => 'Activités',
     'services_label' => 'Services',
-    'employment_label' => 'Emploi and Main d’œuvre',
+    'employment_label' => 'Emploi et Main d’œuvre',
     'orientation_label' => 'Orientation',
     'obem_acronym' => 'OBEM',
     'create_media' => 'Créer des Média',

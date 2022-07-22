@@ -66,6 +66,8 @@ class ObemArticlesIndex extends React.Component
                 next_label: this.props.next_label,
                 previous_label: this.props.previous_label,
                 obem_articles_page_endpoint: this.props.obem_articles_page_endpoint,
+                page_url: this.props.page_url,
+                current_page_number: this.props.current_page_number,
                 csrf_token: this.props.csrf_token
             }
         );
@@ -81,5 +83,7 @@ ObemArticlesIndex.propTypes = {
     next_label: PropTypes.string,
     previous_label: PropTypes.string,
     obem_articles_page_endpoint: PropTypes.string,
+    page_url: PropTypes.string, // the url string with 'page_number' substring where to put the page number
+    current_page_number: PropTypes.string,
     csrf_token: PropTypes.string
 };

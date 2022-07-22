@@ -13,8 +13,25 @@ class PagedViewControls extends React.Component
             this.button_initial_css = null;
             this.max_pages_segment_size = 2;
             this.total_number_of_pages = parseInt(this.props.total_number_of_pages);
-            this.current_page_number = 1;
-            this.current_pages_segment = this.calculate_pages_segment();
+            this.current_page_number = parseInt(this.props.current_page_number);
+            
+            let match = /#pages_segment=(\d+)-(\d+)/i.exec(window.location.href);
+            if(match)
+            {
+                let seg = [];
+                let start = parseInt(match[1]);
+                let end = parseInt(match[2]);
+                for(let i=start; i<=end; i++)
+                {
+                    seg.push(i);
+                }
+                this.current_pages_segment = seg;
+            }
+            else
+            {
+                this.current_pages_segment = this.calculate_pages_segment();
+            }
+            
             this.previous_pages_segment = null;
             this.state = {
                 pages_segment: this.current_pages_segment,
@@ -76,6 +93,7 @@ class PagedViewControls extends React.Component
             let prev = e(
                 'button',
                 {
+                    id: 'previous',
                     key: 'article-page-key-prev',
                     className: `text-primary ${page_button_class}`,
                     style: {margin: '5px', padding: '5px'},
@@ -119,6 +137,7 @@ class PagedViewControls extends React.Component
             let next = e(
                 'button',
                 {
+                    id: 'next',
                     key: 'article-page-key-next',
                     className: `text-primary ${page_button_class}`,
                     style: {margin: '5px', padding: '5px'},
@@ -215,15 +234,15 @@ class PagedViewControls extends React.Component
 
             let button = e.target;
             let inner_html = button.innerHTML.trim();
-            let next_regex = new RegExp(this.props.next_label);
-            let previous_regex = new RegExp(this.props.previous_label);
+            let id = button.id;
+            
             if(/\d+/.test(inner_html))
             {
                 this.current_page_number = parseInt(inner_html);
                 this.pages_segment = this.state.pages_segment;
                 this.fetch_articles_page();
             }
-            else if(next_regex.test(inner_html))
+            else if(/^next$/i.test(id))
             {
                 let length = this.state.pages_segment.length;
                 this.current_page_number = this.state.pages_segment[length-1] + 1;
@@ -237,7 +256,7 @@ class PagedViewControls extends React.Component
                 }
                 this.fetch_articles_page();
             }
-            else if(previous_regex.test(inner_html))
+            else if(/^previous$/i.test(id))
             {
                 this.pages_segment = this.calculate_previous_pages_segment(this.pages_segment);
                 let len = this.pages_segment.length;
@@ -261,40 +280,10 @@ class PagedViewControls extends React.Component
         {
             this.show_wait_spinner();
             sleep(1000);
-
-            let url = this.props.obem_articles_page_endpoint;
-            let data_to_send = {
-                page_number: this.current_page_number,
-                _token: this.props.csrf_token
-            };
-            //console.log('Fetching page number: ' + this.current_page_number);
-            let callback = (received_data) => {
-                this.hide_wait_spinner();
-                let code = parseInt(received_data.code);
-                let data = JSON.parse(received_data.data);
-                if(code === 1)
-                {
-                    let prev = this.state.current_page_number;
-                    //console.log('Setting state page number: current => ' + this.current_page_number + '; prev => ' + prev);
-                    this.setState({
-                        current_page_number: this.current_page_number,
-                        articles_page: data,
-                        previous_page_number: prev,
-                        pages_segment: this.pages_segment
-                    });
-                }
-                else 
-                {
-                    console.log('Error: ' + data);
-                }
-            };
-            let response_type = 'json';
-            $.post(url, data_to_send, callback, response_type)
-            .fail((error) =>
-            {
-                this.hide_wait_spinner();
-                console.log('Post failed: ' + error.status + '; ' + error.statusText);
-            });
+            let p_url = this.props.page_url.replace(/page_number/i, this.current_page_number);
+            let len = this.pages_segment.length;
+            let url = p_url + `#pages_segment=${this.pages_segment[0]}-${this.pages_segment[len-1]}`;
+            window.location = url;
         }
         catch(ex)
         {
@@ -363,6 +352,8 @@ PagedViewControls.propTypes = {
     next_label: PropTypes.string,
     previous_label: PropTypes.string,
     obem_articles_page_endpoint: PropTypes.string,
+    page_url: PropTypes.string, // the url string with 'page_number' substring where to put the page number
+    current_page_number: PropTypes.string,
     csrf_token: PropTypes.string
 };
 

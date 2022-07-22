@@ -44,6 +44,8 @@
                             articles_page: '<?php echo $articles_page; ?>',
                             total_number_of_pages: '<?php echo $total_number_of_pages; ?>',
                             obem_articles_page_endpoint: '<?php echo $obem_articles_page_endpoint; ?>',
+                            page_url: '<?php echo $page_url ?>',
+                            current_page_number: '<?php echo $current_page_number ?>',
                             next_label: "{{ __('obem.next_label') }}",
                             previous_label: "{{ __('obem.previous_label') }}",
                             csrf_token: "{{ csrf_token() }}"
@@ -61,6 +63,8 @@
                             articles_page: '<?php echo $articles_page; ?>',
                             total_number_of_pages: '<?php echo $total_number_of_pages; ?>',
                             obem_articles_page_endpoint: '<?php echo $obem_articles_page_endpoint; ?>',
+                            page_url: '<?php echo $page_url ?>',
+                            current_page_number: '<?php echo $current_page_number ?>',
                             next_label: "{{ __('obem.next_label') }}",
                             previous_label: "{{ __('obem.previous_label') }}",
                             csrf_token: "{{ csrf_token() }}"

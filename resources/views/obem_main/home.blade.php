@@ -48,6 +48,7 @@
                             profile_photo_url: '<?php echo $profile_photo_url; ?>',
                             show_profile_url: '<?php echo $show_profile_url; ?>',
                             home_url: '<?php echo $home_url; ?>',
+                            language_icon_url: "{{ asset('images/language_icon.png') }}",
                             csrf_token: "{{ csrf_token() }}"
                         }
                     ), 

@@ -182,9 +182,12 @@ class ObemNavigationBar extends React.Component
                 e(
                     'div', 
                     {
+                        id: 'language-locale-div',
                         style: {
                             backgroundColor: 'white',
-                            margin: '5px'
+                            margin: '5px',
+                            display: 'flex',
+                            'align-items': 'center'
                         }
                     },
                     e(
@@ -193,6 +196,7 @@ class ObemNavigationBar extends React.Component
                             locale_end_point: this.props.locale_end_point,
                             supported_languages: this.props.supported_languages,
                             active_language_locale: this.props.active_language_locale,
+                            language_icon_url: this.props.language_icon_url,
                             csrf_token: this.props.csrf_token
                         }
                     )
@@ -292,6 +296,7 @@ ObemNavigationBar.propTypes = {
     supported_languages: PropTypes.string, // stringified array of {locale: '',  language: '', country: ''} hashes 
     locale_end_point: PropTypes.string,
     active_language_locale: PropTypes.string,
+    language_icon_url: PropTypes.string,
     sign_in_label: PropTypes.string,
     sign_in_url: PropTypes.string,
     sign_up_label: PropTypes.string,
