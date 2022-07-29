@@ -93,7 +93,7 @@ class ObemUserSignUp extends React.Component
             e(
                 'label',
                 {
-                    style: {weight: 'bold'}
+                    style: {weight: 'bold', color: 'white'}
                 },
                 `${this.props.are_you_obem_employee_label}:`
             ),
@@ -107,14 +107,14 @@ class ObemUserSignUp extends React.Component
                 e(
                     'option',
                     {
-                        value: this.props.no_label
+                        value: 'no'
                     },
                     this.props.no_label
                 ),
                 e(
                     'option',
                     {
-                        value: this.props.yes_label
+                        value: 'yes'
                     },
                     this.props.yes_label
                 )
@@ -203,7 +203,7 @@ class ObemUserSignUp extends React.Component
                         name: 'obem_user_sign_up_form',
                         id: 'obem-user-sign-up-form',
                         action: this.props.user_create_endpoint,
-                        style: { backgroundColor: '#54f0cb' }
+                        style: { backgroundColor: '#34B3F1' }
                     },
                     csrf_token,
                     first_name_input_div,

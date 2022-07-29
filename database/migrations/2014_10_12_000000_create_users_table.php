@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('role');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('validated');
             $table->dateTime('last_login');
             $table->dateTime('last_logout');
             $table->timestamp('email_verified_at')->nullable();

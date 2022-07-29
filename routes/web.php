@@ -56,6 +56,10 @@ Route::post(
     [EmploymentFoldersController::class, 'create_employment_folder']
 );
 Route::post(
+    '/users/validate_user/{id}',
+    [UsersController::class, 'validate_user']
+);
+Route::post(
     '/users/update_user/{id}',
     [UsersController::class, 'update_user']
 );

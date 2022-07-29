@@ -4,8 +4,8 @@
             <div class="text-center">
                 <img src="{{ banner_image_asset_url() }}" class="img-fluid banner-image" />
             </div>
-            <hr style="color: red; margin: 3px; height: 5px"> 
-            <hr style="color: green; margin: 3px; height: 5px"> 
+            <hr style="color: #E10600; margin: 3px; height: 3px"> 
+            <hr style="color: #45E00B; margin: 3px; height: 3px"> 
         </div>
 
         <script type="text/javascript">

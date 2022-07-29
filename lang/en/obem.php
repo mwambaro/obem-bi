@@ -15,6 +15,7 @@ return [
     'create_media' => 'Create Media',
     'update_media' => 'Update Media',
     'address_label' => 'Full address',
+    'validate_label' => 'Validate',
     'phone_number_label' => 'Phone number',
     'highest_degree_label' => 'Highest degree. E.g. Bachelor’s in Communication and Digital Processing',
     'highest_degree_short_label' => 'Highest degree',

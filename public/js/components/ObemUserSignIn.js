@@ -98,7 +98,7 @@ class ObemUserSignIn extends React.Component
                         name: 'obem_user_sign_in',
                         id: 'obem-user-sign-in-form',
                         action: this.props.user_sign_in_endpoint,
-                        style: { backgroundColor: '#944653' }
+                        style: { backgroundColor: '#7882A4' }
                     },
                     csrf_token,
                     email_input_div,

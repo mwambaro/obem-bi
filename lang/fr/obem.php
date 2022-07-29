@@ -15,6 +15,7 @@ return [
     'create_media' => 'Créer des Média',
     'update_media' => 'Mettre à jour des Média',
     'address_label' => 'Adresse complète',
+    'validate_label' => 'Valider',
     'phone_number_label' => 'Numéro de téléphone',
     'highest_degree_label' => 'Votre diplôme le plus élevé. Exemple: Bachelier en Communication et Traitement Numérique',
     'highest_degree_short_label' => 'Diplôme le plus élevé',

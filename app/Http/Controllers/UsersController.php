@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Mail\ObemMailer;
 use App\Models\ObemArticleMedium;
 use App\Models\EmploymentFolder;
 use App\Http\Controllers\ObemSiteMediaController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\EmploymentFoldersController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -96,6 +98,45 @@ class UsersController extends Controller
 
     } // show_user
 
+    function validate_user($id)
+    {
+        $data_to_send = null;
+
+        try 
+        {
+            $user = User::find($id);
+            if($user)
+            {
+                $b = DB::table('users')
+                        ->where('id', $id)
+                        ->update(['validated' => true]);
+                $data_to_send = [
+                    'message' => 'User with successfully validated',
+                    'code' => 0
+                ];
+            }
+            else 
+            {
+                $data_to_send = [
+                    'message' => 'User with id ' . $id . ' could not be found',
+                    'code' => 1
+                ];
+            }
+        }
+        catch(Exception $e)
+        {
+            $message = '(' . date("D M d, Y G:i") . ') ---> [' . __FUNCTION__ . '] ' . $e->getMessage();
+            Log::error($message);
+            $data_to_send = [
+                'message' => $message,
+                'code' => 1
+            ];
+        }
+
+        return response()->json($data_to_send);
+
+    } // validate_user
+
     function show_user_data($id, $view_mode_str)
     {
         $data = null;
@@ -120,11 +161,28 @@ class UsersController extends Controller
             $user_role = null;
             $user_full_name = null;
             $profile_photo_url = null;
+            $is_user_validated = 'false';
+            $validate_user_endpoint = null;
+            $is_admin = 'false';
 
             // Process
             $user = User::find($id);
             if($user)
             {
+                if($user->validated)
+                {
+                    $is_user_validated = 'true';
+                    $validate_user_endpoint = action(
+                        [UsersController::class, 'validate_user'],
+                        ['id' => $user->id]
+                    );
+                }
+
+                if(user_has_admin_role())
+                {
+                    $is_admin = 'true';
+                }
+
                 $upload_profile_photo_action_url = action(
                     [UsersController::class, 'create_profile_photo'],
                     ['id' => $user->id]
@@ -207,6 +265,9 @@ class UsersController extends Controller
                 'edit_employment_folder_url' => $edit_employment_folder_url,
                 'user_email' => $user_email,
                 'user_role' => $user_role,
+                'is_user_validated' => $is_user_validated,
+                'is_admin' => $is_admin,
+                'validate_user_endpoint' => $validate_user_endpoint,
                 'user_full_name' => $user_full_name,
                 'profile_photo_url' => $profile_photo_url
             ];
@@ -388,6 +449,12 @@ class UsersController extends Controller
                             'message' => __('obem.logged_in_true'),
                             'code' => 1
                         ];
+
+                        /* Mail
+                        $body = 'You logged in successfully at ' . date('Y-m-d H:i:s');
+                        $subject = 'Login Report';
+                        Mail::to($email)->send(new ObemMailer($body, $subject));
+                        */
                     }
                     else 
                     {
@@ -816,7 +883,8 @@ class UsersController extends Controller
                         'user_name' => $user_name,
                         'role' => $role,
                         'email' => $email,
-                        'password' => password_digest($password)
+                        'password' => password_digest($password),
+                        'validated' => false
                     ]);
                 }
                 else 
@@ -827,7 +895,8 @@ class UsersController extends Controller
                         'user_name' => $user_name,
                         'role' => $role,
                         'email' => $email,
-                        'password' => password_digest($password)
+                        'password' => password_digest($password),
+                        'validated' => false
                     ]);
                     $stored = $user->save();
                 }

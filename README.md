@@ -25,7 +25,7 @@ Avast warned of file `server.php` being infected with `IDP.Generic` malware so I
 
 # React and Bootstrap Install Guide lines
 
-Manual packages since Afriregister, in the offer purchased, does not give use power to use Nodejs or NPM, or
+Manual packages, since Afriregister, in the offer purchased, does not give us power to use Nodejs or NPM, or
 any other package management tool, mind you.
 
 

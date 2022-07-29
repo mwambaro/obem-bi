@@ -12,6 +12,8 @@ class ObemUserShow extends React.Component
 
     render()
     {
+        //console.log(`Is Validated: ${this.props.is_user_validated}; Is Admin: ${this.props.is_admin}`);
+        
         let container = $(document).isMobile() === true ? 
                         'container-fluid' : 
                         'container';
@@ -270,7 +272,46 @@ class ObemUserShow extends React.Component
                                 )
                             )
                         ) :
-                        e('div') 
+                        (
+                            this.props.is_user_validated === 'true' ?
+                            e(
+                                'div',
+                                {
+                                    className: 'justify-content-end',
+                                    style: {marginLeft: '10px'},
+                                    width: '30px'
+                                },
+                                e(
+                                    'img',
+                                    {
+                                        src: this.props.validated_icon_url,
+                                        className: 'img-fluid',
+                                        width: '30px'
+                                    }
+                                )
+                            ) :
+                            (
+                                this.props.is_admin === 'true' && 
+                                (!/^client|admin$/i.test(this.props.user_role)) ?
+                                e(
+                                    'div',
+                                    {
+                                        className: 'justify-content-center',
+                                        id: this.props.user_email.replace(/@\./i, '-') 
+                                    },
+                                    e(
+                                        'button',
+                                        {
+                                            type: 'button',
+                                            className: 'text-primary',
+                                            onClick: (se) => this.validateUser(se)
+                                        },
+                                        this.props.validate_label
+                                    )
+                                ) :
+                                e('div')
+                            )
+                        )
                     )
                 )
             ),
@@ -328,7 +369,74 @@ class ObemUserShow extends React.Component
     componentDidMount()
     {
         this.hijackFormSubmitEvent();
-    }
+
+    } // componentDidMount
+
+    validateUser(e)
+    {
+        let endpoint = this.props.validate_user_endpoint;
+        let data_to_send = {
+            _token: this.props.csrf_token
+        };
+        let data_type = 'json';
+        let callback = (received_data) => {
+            let code = parseInt(received_data.code);
+            let message = received_data.message;
+            let html = null;
+
+            if(code === 1) // success
+            {
+                html = `
+                    <div class="row verbose-message-div" style="background-color: white; padding: 10px">
+                        <div class="col-sm-1 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                        </div>
+                        <div class="col-sm-11"> <p> ${message} </p> </div>
+                    </div>
+                `;
+            }
+            else // error
+            {
+                html = `
+                <div class="row verbose-message-div">
+                    <div class="col-sm-1 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </div>
+                    <div class="col-sm-11"> <p> ${message} </p> </div>
+                </div>
+                `;
+            }
+
+            $('#verbose-message-div').remove();
+            $(`#${this.props.user_email.replace(/@\./i, '-')}`).prepend(html);
+            $('#validate-button-div').remove();
+        };
+
+        $.post(endpoint, data_to_send, callback, data_type)
+        .fail((error) => {
+            let message = `Status: ${error.status}; ${error.statusText}`;
+            let html = `
+                <div class="row verbose-message-div">
+                    <div class="col-sm-1 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </div>
+                    <div class="col-sm-11"> <p> ${message} </p> </div>
+                </div>
+            `;
+            $('#verbose-message-div').remove();
+            $(`#${this.props.user_email.replace(/@\./i, '-')}`).prepend(html);
+        });
+
+    } // validateUser
 
     hijackFormSubmitEvent()
     {
@@ -484,6 +592,11 @@ ObemUserShow.propTypes = {
     user_email: PropTypes.string,
     user_role_label: PropTypes.string,
     user_role: PropTypes.string,
+    is_user_validated: PropTypes.string,
+    validated_icon_url: PropTypes.string,
+    validate_label: PropTypes.string,
+    validate_user_endpoint: PropTypes.string,
+    is_admin: PropTypes.string,
     user_full_name: PropTypes.string,
     profile_photo_url: PropTypes.string,
     profile_photo_label: PropTypes.string,
